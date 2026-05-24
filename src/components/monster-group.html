@@ -1,0 +1,54 @@
+<template id="monster-group-template">
+    <div class="monster-card mob-container" data-mob-id="">
+        <div class="monster-header">
+            <div class="monster-identity">
+                <h4 class="monster-title">GHOUL MOB</h4>
+                <span class="sub-text tier-indicator">Level 2 Pack</span>
+            </div>
+            <button class="btn alert-btn clear-mob-trigger">REMOVED / CLAIM XP</button>
+        </div>
+
+        <div class="mob-health-breakdown">
+            
+            <div class="entity-health-block leader-block">
+                <div class="entity-meta">
+                    <span class="label">MOB LEADER</span>
+                    <span class="leader-hp-text">12 / 12 HP</span>
+                </div>
+                <div class="bar-container">
+                    <div class="bar-fill leader-hp-fill" style="width: 100%;"></div>
+                </div>
+            </div>
+            
+            <div class="minions-container">
+                <div class="minion-grid-title">Minion Health Checklist</div>
+                <div class="minions-grid">
+                    <div class="entity-health-block minion alive full" data-minion-index="0">
+                        <span class="label">M1</span>
+                        <div class="mini-health-dot">5/5</div>
+                    </div>
+                    <div class="entity-health-block minion alive partial" data-minion-index="1">
+                        <span class="label">M2</span>
+                        <div class="mini-health-dot">3/5</div>
+                    </div>
+                    <div class="entity-health-block minion dead empty" data-minion-index="2">
+                        <span class="label">M3</span>
+                        <div class="mini-health-dot">DEAD</div>
+                    </div>
+                    <div class="entity-health-block minion dead empty" data-minion-index="3">
+                        <span class="label">M4</span>
+                        <div class="mini-health-dot">DEAD</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="monster-controls">
+            <button class="btn btn-dmg damage-mob-btn" data-damage="5">-5 DMG</button>
+            <button class="btn btn-dmg damage-mob-btn" data-damage="1">-1 DMG</button>
+            <button class="btn btn-heal heal-mob-btn" data-heal="1">+1 HEAL</button>
+            
+            <span class="action-alert-msg">Remove 2 Minion Figures from Board</span>
+        </div>
+    </div>
+</template>

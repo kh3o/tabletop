@@ -1,0 +1,95 @@
+<template id="player-card-template">
+    <div class="focused-character-card" data-character-id="">
+        <div class="card-header">
+            <div class="meta-titles">
+                <h2 class="character-name">Elias</h2>
+                <span class="character-class">Paladin</span>
+            </div>
+            <div class="level-badge">
+                <span class="lbl">LVL</span>
+                <span class="val level-value">1</span>
+            </div>
+        </div>
+        
+        <div class="stat-slider-group">
+            
+            <div class="vector-control hp-vector">
+                <div class="vector-label-row">
+                    <label>Health Points</label>
+                    <span class="vector-text-display"><span class="current-hp">12</span> / <span class="max-hp">15</span></span>
+                </div>
+                <div class="slider-interaction">
+                    <button class="btn btn-macro decrease-macro-hp" data-step="-5">-5</button>
+                    <button class="btn btn-step decrease-hp" data-step="-1">-1</button>
+                    <div class="bar-container">
+                        <div class="bar-fill hp-fill" style="width: 80%;"></div>
+                    </div>
+                    <button class="btn btn-step increase-hp" data-step="1">+1</button>
+                    <button class="btn btn-macro increase-macro-hp" data-step="5">+5</button>
+                </div>
+            </div>
+
+            <div class="vector-control mana-vector">
+                <div class="vector-label-row">
+                    <label class="mana-label">Mana Pool</label>
+                    <span class="vector-text-display"><span class="current-mana">4</span> / <span class="max-mana">6</span></span>
+                </div>
+                <div class="slider-interaction">
+                    <button class="btn btn-step decrease-mana" data-step="-1">-1</button>
+                    <div class="bar-container">
+                        <div class="bar-fill mana-fill" style="width: 66.6%;"></div>
+                    </div>
+                    <button class="btn btn-step increase-mana" data-step="1">+1</button>
+                </div>
+            </div>
+
+            <div class="vector-control xp-vector">
+                <div class="vector-label-row">
+                    <label class="xp-label">Experience Points</label>
+                    <span class="vector-text-display"><span class="current-xp">24</span> / <span class="max-xp">50</span> XP</span>
+                </div>
+                <div class="slider-interaction">
+                    <button class="btn btn-step decrease-xp" data-step="-1">-1</button>
+                    <div class="bar-container readonly">
+                        <div class="bar-fill xp-fill" style="width: 48%;"></div>
+                        <div class="milestone-markers">
+                            <div class="tick yellow-tick" style="left: 14%;"></div>
+                            <div class="tick orange-tick" style="left: 44%;"></div>
+                            <div class="tick red-tick" style="left: 86%;"></div>
+                        </div>
+                    </div>
+                    <button class="btn btn-step increase-xp" data-step="1">+1</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="dynamic-inventory-zone">
+            <div class="engine-view md2-skills-view">
+                <div class="section-title">Active Class Skills</div>
+                <div class="skills-horizontal-scroller">
+                    <div class="skill-node active">Holy Charge (Lvl 1)</div>
+                    <div class="skill-node">Aegis Aura</div>
+                </div>
+            </div>
+
+            <div class="engine-view zombicide-inventory-view">
+                <div class="section-title">Equipment Slots</div>
+                <div class="inventory-slots-grid">
+                    <div class="inv-slot hand-slot occupied"><span>Left Hand: Submachine Gun</span></div>
+                    <div class="inv-slot hand-slot empty"><span>Right Hand: Empty</span></div>
+                    <div class="inv-slot body-slot occupied"><span>Body: Bulletproof Vest</span></div>
+                    <div class="inv-slot backpack-slot empty"><span>Backpack 1</span></div>
+                    <div class="inv-slot backpack-slot empty"><span>Backpack 2</span></div>
+                </div>
+            </div>
+
+            <div class="engine-view marvel-traits-view">
+                <div class="section-title">Zombie Traits & Powers</div>
+                <div class="traits-layout">
+                    <div class="trait-tag">Super Strength</div>
+                    <div class="trait-tag strike-cost">Unstoppable Devour</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

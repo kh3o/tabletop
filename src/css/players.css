@@ -1,0 +1,130 @@
+/* Player Frame Specific Styles */
+#player-frame .frame-content {
+    grid-template-columns: 3fr minmax(200px, 1fr); /* Master-detail layout */
+    height: calc(100% - 50px); /* Account for resume-hud height */
+    gap: 10px;
+    padding: 15px;
+    overflow-y: auto; /* Allow scrolling if content overflows */
+}
+
+.focused-character-card {
+    background-color: var(--taphous5e-dark-bg-3);
+    border-radius: 6px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.focused-character-card h2 {
+    color: var(--taphous5e-dark-text-primary);
+    margin-bottom: 5px;
+}
+
+.level-indicator {
+    font-size: 1rem;
+    color: var(--taphous5e-dark-text-secondary);
+    margin-left: 8px;
+}
+
+.stat-slider-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.vector-control {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.vector-control label {
+    font-weight: bold;
+    color: var(--taphous5e-dark-text-secondary);
+    font-size: 0.9rem;
+}
+
+.slider-interaction {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dynamic-inventory-zone {
+    flex-grow: 1; /* Takes remaining space */
+    background-color: var(--taphous5e-dark-bg-1);
+    border: 1px dashed var(--taphous5e-dark-border);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--taphous5e-dark-text-secondary);
+    font-style: italic;
+    min-height: 80px; /* Ensure some visibility when empty */
+}
+
+.party-hub-sidebar {
+    background-color: var(--taphous5e-dark-bg-1);
+    border-left: 1px solid var(--taphous5e-dark-border);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+}
+
+.party-hub-sidebar h3 {
+    color: var(--taphous5e-dark-text-primary);
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--taphous5e-dark-border);
+}
+
+.party-member-row {
+    background-color: var(--taphous5e-dark-bg-3);
+    padding: 10px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column; /* Changed to column for better stack on small screens */
+    gap: 5px;
+    align-items: flex-start; /* Align text to start */
+}
+
+.party-member-row.critical {
+    border-left: 4px solid var(--taphous5e-dark-highlight-red);
+}
+
+.mini-bar {
+    width: 100%; /* Full width within its container */
+    height: 6px;
+    background-color: var(--taphous5e-dark-highlight-red); /* Default to HP for party status */
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.alert-tag, .level-up-tag {
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.alert-tag {
+    color: var(--taphous5e-dark-highlight-red);
+}
+
+.level-up-tag {
+    color: var(--taphous5e-dark-highlight-orange);
+}
+
+/* Responsive Adjustments for Player Frame */
+@media (max-width: 768px) {
+    #player-frame .frame-content {
+        grid-template-columns: 1fr; /* Stack main card and sidebar on smaller screens */
+    }
+    .party-hub-sidebar {
+        border-left: none; /* Remove border when stacked */
+        border-top: 1px solid var(--taphous5e-dark-border); /* Add top border for separation */
+    }
+}

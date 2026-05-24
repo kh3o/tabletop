@@ -1,0 +1,141 @@
+/* Monster Frame Specific Styles */
+#monster-frame .frame-content {
+    grid-template-columns: 1fr; /* Single column layout for monster cards */
+    height: calc(100% - 50px); /* Account for resume-hud height */
+    padding: 15px;
+    gap: 15px;
+    overflow-y: auto; /* Enable scrolling for monster list */
+}
+
+.monster-card {
+    background-color: var(--taphous5e-dark-bg-3);
+    border: 1px solid var(--taphous5e-dark-border-light);
+    border-radius: 6px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.monster-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--taphous5e-dark-border);
+    padding-bottom: 8px;
+}
+
+.monster-header h4 {
+    color: var(--taphous5e-dark-text-primary);
+    font-size: 1.2rem;
+}
+
+.monster-header .sub-text {
+    font-size: 0.9rem;
+    color: var(--taphous5e-dark-text-secondary);
+    margin-left: 8px;
+}
+
+.mob-health-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.minions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(65px, 1fr)); /* Responsive grid for minions */
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.entity-health-block {
+    background-color: var(--taphous5e-dark-bg-1);
+    border: 1px solid var(--taphous5e-dark-border);
+    padding: 8px;
+    border-radius: 4px;
+    text-align: center;
+    color: var(--taphous5e-dark-text-primary);
+    font-size: 0.9rem;
+}
+
+.entity-health-block.leader {
+    background-color: var(--taphous5e-dark-bg-2);
+    border-color: var(--taphous5e-dark-highlight-red);
+    padding: 10px;
+}
+
+.entity-health-block .label {
+    font-weight: bold;
+    display: block; /* Ensure label takes full width */
+    margin-bottom: 4px;
+}
+
+.mini-health-dot {
+    font-weight: bold;
+    font-size: 0.85rem;
+    display: block; /* Ensure it's on its own line */
+}
+
+.entity-health-block.alive .mini-health-dot.full {
+    color: limegreen; /* Example color for full health */
+}
+.entity-health-block.minion.partial .mini-health-dot.damaged {
+    color: var(--taphous5e-dark-highlight-orange); /* Example color for damaged */
+}
+.entity-health-block.minion.dead {
+    opacity: 0.35;
+    background-color: var(--taphous5e-dark-bg-0);
+    border-color: #333;
+    color: var(--taphous5e-dark-text-secondary);
+}
+.entity-health-block.minion.dead .mini-health-dot.empty {
+    color: var(--taphous5e-dark-highlight-red);
+}
+
+
+.monster-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap; /* Allow controls to wrap on smaller screens */
+}
+
+.btn-dmg, .btn-dmg-macro {
+    background-color: var(--taphous5e-dark-damage-btn-bg);
+    border-color: var(--taphous5e-dark-damage-btn-border);
+}
+
+.btn-dmg:hover, .btn-dmg-macro:hover {
+    background-color: var(--taphous5e-dark-damage-btn-hover);
+}
+
+.action-alert-msg {
+    color: var(--taphous5e-dark-alert-color);
+    font-size: 0.9rem;
+    font-style: italic;
+    margin-left: auto; /* Push to the right */
+}
+
+/* Specific styling for boss types if needed */
+.monster-card.boss-type .vector-control {
+    margin-top: 10px;
+}
+
+/* Responsive Adjustments for Monster Frame */
+@media (max-width: 480px) {
+    .monster-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    .monster-controls {
+        justify-content: center;
+    }
+    .action-alert-msg {
+        margin-left: 0; /* Center when controls wrap */
+        text-align: center;
+        width: 100%;
+    }
+}

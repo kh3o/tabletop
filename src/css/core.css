@@ -1,0 +1,184 @@
+/* Core Layout Resets & Global Variables */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --taphous5e-dark-bg-0: #121214;
+    --taphous5e-dark-bg-1: #1a1a1e;
+    --taphous5e-dark-bg-2: #1d1d24;
+    --taphous5e-dark-bg-3: #222229;
+    --taphous5e-dark-bg-4: #24242b;
+    --taphous5e-dark-border: #2d2d34;
+    --taphous5e-dark-border-light: #3a3a45;
+    --taphous5e-dark-text-primary: #e2e8f0;
+    --taphous5e-dark-text-secondary: #94a3b8;
+    --taphous5e-dark-highlight-red: #ef4444;
+    --taphous5e-dark-highlight-blue: #2563eb;
+    --taphous5e-dark-highlight-orange: #d97706;
+    --taphous5e-dark-button-bg: #2d2d39;
+    --taphous5e-dark-button-border: #444452;
+    --taphous5e-dark-button-hover: #3e3e4f;
+    --taphous5e-dark-damage-btn-bg: #7f1d1d;
+    --taphous5e-dark-damage-btn-border: #b91c1c;
+    --taphous5e-dark-damage-btn-hover: #991b1b;
+    --taphous5e-dark-alert-color: #f59e0b;
+}
+
+body {
+    background-color: var(--taphous5e-dark-bg-0);
+    color: var(--taphous5e-dark-text-primary);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    display: flex; /* Ensure body uses flex to manage #app height */
+    margin: 0;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Takes full viewport height */
+    width: 100vw; /* Takes full viewport width */
+    padding: 10px;
+    gap: 10px;
+}
+
+/* Accordion Frame Logic */
+.frame {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--taphous5e-dark-bg-1);
+    border: 2px solid var(--taphous5e-dark-border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: flex 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+}
+
+.frame.expanded {
+    flex: 1 1 85%; /* Takes up more space when expanded */
+}
+
+.frame.expanded .frame-content {
+    display: grid; /* Content inside expanded frame uses grid */
+    opacity: 1;
+    pointer-events: auto; /* Enable interactions */
+}
+
+.frame.collapsed {
+    flex: 0 0 50px; /* Collapses to a fixed height */
+    cursor: pointer;
+}
+
+.frame.collapsed .frame-content {
+    display: none; /* Hide content when collapsed */
+    opacity: 0;
+    pointer-events: none; /* Disable interactions */
+}
+
+.frame.collapsed .resume-hud {
+    background-color: var(--taphous5e-dark-bg-4);
+}
+
+.resume-hud {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    height: 50px; /* Fixed height for the header */
+    background-color: var(--taphous5e-dark-bg-2);
+    border-bottom: 1px solid var(--taphous5e-dark-border);
+    user-select: none;
+    transition: background-color 0.3s ease;
+}
+
+.hud-mini-stats {
+    display: flex;
+    gap: 10px;
+    font-size: 0.85rem;
+    color: var(--taphous5e-dark-text-secondary);
+}
+
+.hud-toggle-icon {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--taphous5e-dark-text-primary);
+    transition: transform 0.3s ease;
+}
+
+/* Base Button Styling */
+.btn {
+    background-color: var(--taphous5e-dark-button-bg);
+    color: var(--taphous5e-dark-text-primary);
+    border: 1px solid var(--taphous5e-dark-button-border);
+    padding: 10px 14px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+.btn:hover {
+    background-color: var(--taphous5e-dark-button-hover);
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn.alert-btn {
+    background-color: var(--taphous5e-dark-highlight-red);
+    border-color: var(--taphous5e-dark-highlight-red);
+}
+.btn.alert-btn:hover {
+    background-color: darken(var(--taphous5e-dark-highlight-red), 10%); /* Pseudo-darken */
+}
+
+/* Progress Bar Components */
+.bar-container {
+    flex-grow: 1;
+    background-color: #0f0f12; /* Darkest background for empty part */
+    height: 35px;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--taphous5e-dark-border-light);
+    display: flex; /* For centering text */
+    align-items: center; /* For centering text */
+    justify-content: center; /* For centering text */
+}
+
+.bar-fill {
+    height: 100%;
+    width: 0%; /* Default to 0, controlled by JS */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition: width 0.3s ease;
+    background-color: #5a5a5a; /* Neutral default, overridden by game engine */
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--taphous5e-dark-text-primary); /* Ensure text is visible on bar */
+}
+
+.bar-container.readonly .bar-fill {
+    cursor: default;
+}
+
+/* Game Engine Theming Hooks */
+[data-game-engine="massive-darkness-2"] .hp-vector .bar-fill { background-color: var(--taphous5e-dark-highlight-red); }
+[data-game-engine="massive-darkness-2"] .mana-vector .bar-fill { background-color: var(--taphous5e-dark-highlight-blue); }
+[data-game-engine="massive-darkness-2"] .xp-vector .bar-fill { background-color: var(--taphous5e-dark-highlight-orange); }
+[data-game-engine="massive-darkness-2"] .stat-badge.hp { background-color: var(--taphous5e-dark-damage-btn-bg); }
+[data-game-engine="massive-darkness-2"] .stat-badge.mana { background-color: #1e3a8a; } /* Specific blue shade */
+
+[data-game-engine="zombicide-2"] .mana-vector { display: none !important; }
+[data-game-engine="zombicide-2"] .xp-vector .bar-fill { background-color: #dc2626; } /* Zombicide red */
+
+[data-game-engine="marvel-zombies"] .mana-vector label::before { content: "Hunger Level"; }
