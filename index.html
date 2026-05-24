@@ -13,29 +13,27 @@
     <div id="app" data-game-engine="massive-darkness-2">
         
         <section id="player-frame" class="frame expanded">
-            <div class="resume-hud"> <!-- onclick removed -->
+            <div class="resume-hud">
                 <span class="hero-name">Elias (Paladin)</span>
                 <div class="hud-mini-stats">
-                    <span class="stat-badge hp">HP: 12/15</span>
-                    <span class="stat-badge mana">MP: 4/6</span>
-                    <span class="stat-badge xp">LVL: 2 (24 XP)</span>
+                    <span class="stat-badge hp">HP: <span class="hud-hp">10</span>/<span class="hud-maxhp">12</span></span>
+                    <span class="stat-badge mana">MP: <span class="hud-mp">4</span>/<span class="hud-maxmp">6</span></span>
+                    <span class="stat-badge xp">LVL: <span class="hud-lvl">2</span> (<span class="hud-xp">24</span> XP)</span>
                 </div>
                 <div class="hud-toggle-icon">▲</div>
             </div>
 
             <div class="frame-content">
                 <div class="focused-character-card" data-character-id="player1">
-                    <h2>Elias <span class="level-indicator">Level 2</span></h2>
+                    <h2><span class="char-name">Elias</span> <span class="level-indicator">Level <span class="char-lvl">2</span></span></h2>
                     
                     <div class="stat-slider-group">
                         <div class="vector-control hp-vector">
                             <label>Health Points</label>
                             <div class="slider-interaction">
-                                <button class="btn btn-step" data-stat-type="hp" data-amount="-5">-5</button>
                                 <button class="btn btn-step" data-stat-type="hp" data-amount="-1">-1</button>
-                                <div class="bar-container"><div class="bar-fill" style="width: 80%;">12 / 15</div></div>
+                                <div class="bar-container"><span class="bar-text">10 / 12</span></div>
                                 <button class="btn btn-step" data-stat-type="hp" data-amount="1">+1</button>
-                                <button class="btn btn-step" data-stat-type="hp" data-amount="5">+5</button>
                             </div>
                         </div>
 
@@ -43,17 +41,17 @@
                             <label>Mana Pool</label>
                             <div class="slider-interaction">
                                 <button class="btn btn-step" data-stat-type="mp" data-amount="-1">-1</button>
-                                <div class="bar-container"><div class="bar-fill" style="width: 66%;">4 / 6</div></div>
+                                <div class="bar-container"><span class="bar-text">4 / 6</span></div>
                                 <button class="btn btn-step" data-stat-type="mp" data-amount="1">+1</button>
                             </div>
                         </div>
 
                         <div class="vector-control xp-vector">
                             <label>Experience (Progress Tracker)</label>
-                            <div class="slider-interaction"> <!-- Added for XP adjustment buttons -->
-                                <button class="btn btn-step" data-stat-type="xp" data-amount="-5">-5</button>
-                                <div class="bar-container readonly"><div class="bar-fill" style="width: 48%;">24 / 50 XP</div></div>
-                                <button class="btn btn-step" data-stat-type="xp" data-amount="5">+5</button>
+                            <div class="slider-interaction">
+                                <button class="btn btn-step" data-stat-type="xp" data-amount="-1">-1</button>
+                                <div class="bar-container readonly"><span class="bar-text">24 / 50 XP</span></div>
+                                <button class="btn btn-step" data-stat-type="xp" data-amount="1">+1</button>
                             </div>
                         </div>
                     </div>
@@ -93,43 +91,24 @@
                 <div class="monster-card mob-type" data-mob-id="ghoul-mob-1">
                     <div class="monster-header">
                         <h4>GHOUL MOB <span class="sub-text">(Level 2 Pack)</span></h4>
-                        <button class="btn alert-btn clear-mob-trigger" data-mob-id="ghoul-mob-1">[TOTAL ROOM CLEAR / XP]</button> <!-- onclick removed -->
+                        <button class="btn alert-btn clear-mob-trigger" data-mob-id="ghoul-mob-1">ROOM CLEAR / CLAIM XP</button>
                     </div>
 
                     <div class="mob-health-breakdown">
-                        <div class="entity-health-block leader">
-                            <span class="label">LEADER</span>
-                            <div class="bar-container"><div class="bar-fill" style="width: 100%;">12 / 12 HP</div></div>
+                        <div class="entity-health-block encounter-bar">
+                            <span class="label">LEADER + MINIONS</span>
+                            <div class="bar-container"><span class="bar-text">15 / 15 HP</span></div>
                         </div>
                         
-                        <div class="minions-grid">
-                            <div class="entity-health-block minion alive">
-                                <span class="label">M1</span>
-                                <div class="mini-health-dot full">5/5</div>
-                            </div>
-                            <div class="entity-health-block minion alive">
-                                <span class="label">M2</span>
-                                <div class="mini-health-dot full">5/5</div>
-                            </div>
-                            <div class="entity-health-block minion partial">
-                                <span class="label">M3</span>
-                                <div class="mini-health-dot damaged">3/5</div>
-                            </div>
-                            <div class="entity-health-block minion dead">
-                                <span class="label">M4</span>
-                                <div class="mini-health-dot empty">[X]</div>
-                            </div>
-                            <div class="entity-health-block minion dead">
-                                <span class="label">M5</span>
-                                <div class="mini-health-dot empty">[X]</div>
-                            </div>
+                        <div class="minions-grid" data-mob-id="ghoul-mob-1">
                         </div>
                     </div>
 
                     <div class="monster-controls">
-                        <button class="btn btn-dmg" data-mob-id="ghoul-mob-1" data-amount="-5">-5 DMG</button> <!-- onclick removed -->
-                        <button class="btn btn-dmg" data-mob-id="ghoul-mob-1" data-amount="-1">-1 DMG</button> <!-- onclick removed -->
-                        <span class="action-alert-msg">"Remove 2 Minion Figures from Board"</span>
+                        <button class="btn btn-dmg" data-mob-id="ghoul-mob-1" data-amount="-5">-5 DMG</button>
+                        <button class="btn btn-dmg" data-mob-id="ghoul-mob-1" data-amount="-1">-1 DMG</button>
+                        <button class="btn btn-heal" data-mob-id="ghoul-mob-1" data-amount="1">+1 HEAL</button>
+                        <span class="action-alert-msg" id="mob-ghoul-msg">Damage reduces total encounter HP</span>
                     </div>
                 </div>
 
@@ -138,12 +117,13 @@
                         <h4>CYCLOPS <span class="sub-text">(Roaming Monster)</span></h4>
                     </div>
                     <div class="vector-control hp-vector">
-                        <div class="bar-container"><div class="bar-fill" style="width: 65%;">52 / 80 HP</div></div>
+                        <div class="bar-container"><span class="bar-text">52 / 80 HP</span></div>
                     </div>
                     <div class="monster-controls">
-                        <button class="btn btn-dmg-macro" data-mob-id="cyclops-boss-1" data-amount="-10">-10</button> <!-- onclick removed -->
-                        <button class="btn btn-dmg" data-mob-id="cyclops-boss-1" data-amount="-5">-5</button> <!-- onclick removed -->
-                        <button class="btn btn-dmg" data-mob-id="cyclops-boss-1" data-amount="-1">-1</button> <!-- onclick removed -->
+                        <button class="btn btn-dmg-macro" data-mob-id="cyclops-boss-1" data-amount="-10">-10</button>
+                        <button class="btn btn-dmg" data-mob-id="cyclops-boss-1" data-amount="-5">-5</button>
+                        <button class="btn btn-dmg" data-mob-id="cyclops-boss-1" data-amount="-1">-1</button>
+                        <button class="btn btn-heal" data-mob-id="cyclops-boss-1" data-amount="1">+1 HEAL</button>
                     </div>
                 </div>
             </div>

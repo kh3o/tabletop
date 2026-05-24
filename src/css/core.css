@@ -171,6 +171,24 @@ body {
     cursor: default;
 }
 
+/* Text overlay on top of segmented bars */
+.bar-text {
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.95rem;
+    color: var(--taphous5e-dark-text-primary);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8), 0 0 6px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+}
+
 /* Game Engine Theming Hooks */
 [data-game-engine="massive-darkness-2"] .hp-vector .bar-fill { background-color: var(--taphous5e-dark-highlight-red); }
 [data-game-engine="massive-darkness-2"] .mana-vector .bar-fill { background-color: var(--taphous5e-dark-highlight-blue); }
@@ -182,3 +200,30 @@ body {
 [data-game-engine="zombicide-2"] .xp-vector .bar-fill { background-color: #dc2626; } /* Zombicide red */
 
 [data-game-engine="marvel-zombies"] .mana-vector label::before { content: "Hunger Level"; }
+
+/* Segmented Bar Styling */
+.bar-container.segmented {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 2px;
+    padding: 3px;
+    background-color: rgba(0, 0, 0, 0.4);
+    height: 35px;
+    border: 1px solid var(--taphous5e-dark-border-light);
+    justify-content: flex-start;
+    align-items: stretch;
+    overflow: hidden;
+}
+
+.segment {
+    flex: 1 1 0;
+    border-radius: 1px;
+    background-color: #2d2d39; /* Default "empty" color */
+    transition: background-color 0.2s ease;
+}
+
+/* Colors for the squares */
+.hp-vector .segment.filled,
+.entity-health-block.encounter-bar .segment.filled { background-color: var(--taphous5e-dark-highlight-red); }
+.mana-vector .segment.filled { background-color: var(--taphous5e-dark-highlight-blue); }
+.xp-vector .segment.filled { background-color: var(--taphous5e-dark-highlight-orange); }

@@ -59,7 +59,7 @@
     font-size: 0.9rem;
 }
 
-.entity-health-block.leader {
+.entity-health-block.encounter-bar {
     background-color: var(--taphous5e-dark-bg-2);
     border-color: var(--taphous5e-dark-highlight-red);
     padding: 10px;
@@ -67,29 +67,85 @@
 
 .entity-health-block .label {
     font-weight: bold;
-    display: block; /* Ensure label takes full width */
+    display: block;
     margin-bottom: 4px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .mini-health-dot {
     font-weight: bold;
-    font-size: 0.85rem;
-    display: block; /* Ensure it's on its own line */
+    font-size: 1.1rem;
+    display: block;
+    padding: 4px 0;
 }
 
-.entity-health-block.alive .mini-health-dot.full {
-    color: limegreen; /* Example color for full health */
+/* Sub-header between total bar and minion grid */
+.figurines-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    margin-bottom: 2px;
+    padding: 2px 0;
 }
-.entity-health-block.minion.partial .mini-health-dot.damaged {
-    color: var(--taphous5e-dark-highlight-orange); /* Example color for damaged */
+.figurines-header span {
+    color: var(--taphous5e-dark-text-secondary);
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
-.entity-health-block.minion.dead {
-    opacity: 0.35;
+.figurines-header hr {
+    flex: 1;
+    border: none;
+    border-top: 1px solid var(--taphous5e-dark-border);
+}
+
+/* Each figurine box - clearly visible card */
+.minions-grid .entity-health-block {
+    background-color: var(--taphous5e-dark-bg-3);
+    border: 2px solid var(--taphous5e-dark-border-light);
+    padding: 12px 8px;
+    border-radius: 6px;
+    min-height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.minions-grid .entity-health-block.leader {
+    border-color: var(--taphous5e-dark-highlight-red);
+    background-color: var(--taphous5e-dark-bg-2);
+}
+
+/* Alive state */
+.minions-grid .entity-health-block.alive {
+    border-color: #22c55e;
+}
+.minions-grid .entity-health-block.alive .mini-health-dot {
+    color: #22c55e;
+}
+
+/* Partial/damaged state */
+.minions-grid .entity-health-block.partial {
+    border-color: var(--taphous5e-dark-highlight-orange);
+    background-color: rgba(217, 119, 6, 0.1);
+}
+.minions-grid .entity-health-block.partial .mini-health-dot {
+    color: var(--taphous5e-dark-highlight-orange);
+}
+
+/* Dead state */
+.minions-grid .entity-health-block.dead {
+    opacity: 0.4;
     background-color: var(--taphous5e-dark-bg-0);
     border-color: #333;
-    color: var(--taphous5e-dark-text-secondary);
+    text-decoration: line-through;
 }
-.entity-health-block.minion.dead .mini-health-dot.empty {
+.minions-grid .entity-health-block.dead .mini-health-dot {
     color: var(--taphous5e-dark-highlight-red);
 }
 
@@ -109,6 +165,14 @@
 
 .btn-dmg:hover, .btn-dmg-macro:hover {
     background-color: var(--taphous5e-dark-damage-btn-hover);
+}
+
+.btn-heal {
+    background-color: #14532d;
+    border-color: #166534;
+}
+.btn-heal:hover {
+    background-color: #166534;
 }
 
 .action-alert-msg {
