@@ -1,12 +1,72 @@
 /* Monster Frame Specific Styles */
 #monster-frame .frame-content {
-    grid-template-columns: 1fr; /* Single column layout for monster cards */
-    height: calc(100% - 50px); /* Account for resume-hud height */
+    grid-template-columns: 1fr;
+    height: calc(100% - 50px);
     padding: 15px;
     gap: 15px;
-    overflow-y: auto; /* Enable scrolling for monster list */
+    overflow-y: auto;
 }
 
+/* --- Selector Panel --- */
+.monster-selector-panel {
+    background-color: var(--taphous5e-dark-bg-3);
+    border: 1px solid var(--taphous5e-dark-border-light);
+    border-radius: 6px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.selector-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.selector-label {
+    font-weight: bold;
+    color: var(--taphous5e-dark-text-secondary);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.selector-select {
+    background-color: var(--taphous5e-dark-bg-1);
+    color: var(--taphous5e-dark-text-primary);
+    border: 1px solid var(--taphous5e-dark-border-light);
+    padding: 8px 10px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    flex: 1;
+    min-width: 150px;
+}
+
+.selector-select:focus {
+    outline: none;
+    border-color: var(--taphous5e-dark-highlight-blue);
+}
+
+.btn-add {
+    background-color: #166534;
+    border-color: #22c55e;
+    color: #fff;
+}
+.btn-add:hover {
+    background-color: #15803d;
+}
+
+.selector-info {
+    color: var(--taphous5e-dark-text-secondary);
+    font-size: 0.8rem;
+    display: flex;
+    gap: 10px;
+}
+
+/* --- Monster Card --- */
 .monster-card {
     background-color: var(--taphous5e-dark-bg-3);
     border: 1px solid var(--taphous5e-dark-border-light);
@@ -35,6 +95,17 @@
     margin-left: 8px;
 }
 
+/* Treasure badge */
+.treasure-badge {
+    background-color: #b45309;
+    color: #fef3c7;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
 .mob-health-breakdown {
     display: flex;
     flex-direction: column;
@@ -44,9 +115,9 @@
 
 .minions-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(65px, 1fr)); /* Responsive grid for minions */
-    gap: 8px;
-    margin-top: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    margin-top: 6px;
 }
 
 .entity-health-block {
@@ -103,7 +174,7 @@
     border-top: 1px solid var(--taphous5e-dark-border);
 }
 
-/* Each figurine box - clearly visible card */
+/* Each figurine box */
 .minions-grid .entity-health-block {
     background-color: var(--taphous5e-dark-bg-3);
     border: 2px solid var(--taphous5e-dark-border-light);
@@ -149,13 +220,13 @@
     color: var(--taphous5e-dark-highlight-red);
 }
 
-
+/* Monster Controls */
 .monster-controls {
     display: flex;
     align-items: center;
     gap: 10px;
     margin-top: 15px;
-    flex-wrap: wrap; /* Allow controls to wrap on smaller screens */
+    flex-wrap: wrap;
 }
 
 .btn-dmg, .btn-dmg-macro {
@@ -175,19 +246,10 @@
     background-color: #166534;
 }
 
-.action-alert-msg {
-    color: var(--taphous5e-dark-alert-color);
-    font-size: 0.9rem;
-    font-style: italic;
-    margin-left: auto; /* Push to the right */
-}
-
-/* Specific styling for boss types if needed */
 .monster-card.boss-type .vector-control {
     margin-top: 10px;
 }
 
-/* Responsive Adjustments for Monster Frame */
 @media (max-width: 480px) {
     .monster-header {
         flex-direction: column;
@@ -197,9 +259,8 @@
     .monster-controls {
         justify-content: center;
     }
-    .action-alert-msg {
-        margin-left: 0; /* Center when controls wrap */
-        text-align: center;
-        width: 100%;
+    .selector-row {
+        flex-direction: column;
+        align-items: stretch;
     }
 }

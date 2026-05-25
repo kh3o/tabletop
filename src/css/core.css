@@ -33,20 +33,52 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     height: 100vh;
     overflow: hidden;
-    display: flex; /* Ensure body uses flex to manage #app height */
+    display: flex;
     margin: 0;
 }
 
-#app {
+/* Layout Toggle Bar */
+#layout-bar {
     display: flex;
-    flex-direction: column;
-    height: 100vh; /* Takes full viewport height */
-    width: 100vw; /* Takes full viewport width */
-    padding: 10px;
-    gap: 10px;
+    justify-content: flex-end;
+    padding: 2px 4px;
+    background: transparent;
+}
+.layout-btn {
+    cursor: pointer;
+    color: var(--taphous5e-dark-text-secondary);
+    font-size: 1.2rem;
+    padding: 2px 8px;
+    border: 1px solid var(--taphous5e-dark-border);
+    border-radius: 4px;
+    user-select: none;
+}
+.layout-btn:hover {
+    color: var(--taphous5e-dark-text-primary);
+    background-color: var(--taphous5e-dark-button-hover);
 }
 
-/* Accordion Frame Logic */
+/* App layout: vertical (default) */
+#app.layout-vertical {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    padding: 10px;
+    gap: 6px;
+}
+
+/* App layout: horizontal */
+#app.layout-horizontal {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: 100vw;
+    padding: 10px;
+    gap: 6px;
+}
+
+/* Frame - AND behavior (each frame toggles independently) */
 .frame {
     display: flex;
     flex-direction: column;
@@ -54,31 +86,40 @@ body {
     border: 2px solid var(--taphous5e-dark-border);
     border-radius: 8px;
     overflow: hidden;
-    transition: flex 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+    transition: flex 0.3s ease;
 }
 
-.frame.expanded {
-    flex: 1 1 85%; /* Takes up more space when expanded */
+#app.layout-vertical .frame.expanded {
+    flex: 1;
+    min-height: 100px;
+}
+#app.layout-horizontal .frame.expanded {
+    flex: 1;
+    min-width: 200px;
 }
 
 .frame.expanded .frame-content {
-    display: grid; /* Content inside expanded frame uses grid */
+    display: grid;
     opacity: 1;
-    pointer-events: auto; /* Enable interactions */
+    pointer-events: auto;
 }
 
 .frame.collapsed {
-    flex: 0 0 50px; /* Collapses to a fixed height */
-    cursor: pointer;
+    flex: 0 0 auto;
+}
+#app.layout-horizontal .frame.collapsed {
+    flex: 0 0 auto;
+    min-width: 50px;
 }
 
 .frame.collapsed .frame-content {
-    display: none; /* Hide content when collapsed */
+    display: none;
     opacity: 0;
-    pointer-events: none; /* Disable interactions */
+    pointer-events: none;
 }
 
-.frame.collapsed .resume-hud {
+.frame.collapsed .resume-hud,
+.frame.collapsed .player-frame-header {
     background-color: var(--taphous5e-dark-bg-4);
 }
 
@@ -87,25 +128,29 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 12px 16px;
-    height: 50px; /* Fixed height for the header */
+    height: 50px;
     background-color: var(--taphous5e-dark-bg-2);
     border-bottom: 1px solid var(--taphous5e-dark-border);
     user-select: none;
-    transition: background-color 0.3s ease;
 }
 
-.hud-mini-stats {
-    display: flex;
-    gap: 10px;
-    font-size: 0.85rem;
-    color: var(--taphous5e-dark-text-secondary);
-}
-
-.hud-toggle-icon {
+.resume-hud .hud-toggle-icon,
+.player-frame-header .hud-toggle-icon {
     font-size: 1.2rem;
     font-weight: bold;
     color: var(--taphous5e-dark-text-primary);
-    transition: transform 0.3s ease;
+}
+
+/* LEVEL UP button */
+.level-up-btn {
+    display: none;
+    background-color: #166534;
+    border-color: #22c55e;
+    color: #fff;
+    margin-left: auto;
+}
+.level-up-btn:hover {
+    background-color: #15803d;
 }
 
 /* Base Button Styling */
@@ -117,8 +162,7 @@ body {
     font-weight: bold;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
-    white-space: nowrap; /* Prevent text wrapping */
+    white-space: nowrap;
 }
 
 .btn:hover {
@@ -133,38 +177,34 @@ body {
     background-color: var(--taphous5e-dark-highlight-red);
     border-color: var(--taphous5e-dark-highlight-red);
 }
-.btn.alert-btn:hover {
-    background-color: darken(var(--taphous5e-dark-highlight-red), 10%); /* Pseudo-darken */
-}
 
 /* Progress Bar Components */
 .bar-container {
     flex-grow: 1;
-    background-color: #0f0f12; /* Darkest background for empty part */
+    background-color: #0f0f12;
     height: 35px;
     border-radius: 4px;
     overflow: hidden;
     position: relative;
     border: 1px solid var(--taphous5e-dark-border-light);
-    display: flex; /* For centering text */
-    align-items: center; /* For centering text */
-    justify-content: center; /* For centering text */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .bar-fill {
     height: 100%;
-    width: 0%; /* Default to 0, controlled by JS */
+    width: 0%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
     font-size: 0.95rem;
-    transition: width 0.3s ease;
-    background-color: #5a5a5a; /* Neutral default, overridden by game engine */
+    background-color: #5a5a5a;
     position: absolute;
     left: 0;
     top: 0;
-    color: var(--taphous5e-dark-text-primary); /* Ensure text is visible on bar */
+    color: var(--taphous5e-dark-text-primary);
 }
 
 .bar-container.readonly .bar-fill {
@@ -194,10 +234,10 @@ body {
 [data-game-engine="massive-darkness-2"] .mana-vector .bar-fill { background-color: var(--taphous5e-dark-highlight-blue); }
 [data-game-engine="massive-darkness-2"] .xp-vector .bar-fill { background-color: var(--taphous5e-dark-highlight-orange); }
 [data-game-engine="massive-darkness-2"] .stat-badge.hp { background-color: var(--taphous5e-dark-damage-btn-bg); }
-[data-game-engine="massive-darkness-2"] .stat-badge.mana { background-color: #1e3a8a; } /* Specific blue shade */
+[data-game-engine="massive-darkness-2"] .stat-badge.mana { background-color: #1e3a8a; }
 
 [data-game-engine="zombicide-2"] .mana-vector { display: none !important; }
-[data-game-engine="zombicide-2"] .xp-vector .bar-fill { background-color: #dc2626; } /* Zombicide red */
+[data-game-engine="zombicide-2"] .xp-vector .bar-fill { background-color: #dc2626; }
 
 [data-game-engine="marvel-zombies"] .mana-vector label::before { content: "Hunger Level"; }
 
@@ -218,8 +258,7 @@ body {
 .segment {
     flex: 1 1 0;
     border-radius: 1px;
-    background-color: #2d2d39; /* Default "empty" color */
-    transition: background-color 0.2s ease;
+    background-color: #2d2d39;
 }
 
 /* Colors for the squares */

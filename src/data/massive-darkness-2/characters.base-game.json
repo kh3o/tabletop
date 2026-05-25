@@ -1,0 +1,206 @@
+{
+  "game": "Massive Darkness 2: Hellscape",
+  "level_table": [
+    { "level": 1, "xp_required": 0, "stat_bonus": { "hp": 0, "mp": 0 }, "unlocks": "Starting Item, Level 1 Skill" },
+    { "level": 2, "xp_required": 5, "stat_bonus": { "hp": 1, "mp": 0 }, "unlocks": "New Skill, Common Item Slot" },
+    { "level": 3, "xp_required": 8, "stat_bonus": { "hp": 1, "mp": 1 }, "unlocks": "New Skill, Rare Item Slot" },
+    { "level": 4, "xp_required": 12, "stat_bonus": { "hp": 2, "mp": 1 }, "unlocks": "New Skill, Epic Item Slot" },
+    { "level": 5, "xp_required": 15, "stat_bonus": { "hp": 3, "mp": 2 }, "unlocks": "New Skill (Max Level)" }
+  ],
+  "classes": [
+    {
+      "class_name": "Paladin of Fury",
+      "source": "Core Box",
+      "mechanics": "Consecration zones and Blessings",
+      "light_skills": [
+        "Consecration: Valor (+1 Melee Attack Die)",
+        "Consecration: Aegis (+1 Defense Die)",
+        "Consecration: Grace (+1 Free Movement)"
+      ],
+      "shadow_skills": [
+        "Shield of Fury (Payback damage to attackers)",
+        "Retribution (Convert damage into direct wounds)"
+      ],
+      "characters": [
+        { "name": "Sir Ronen", "starting_hp": 6, "starting_mp": 4, "ability": "Master of consecration zones" },
+        { "name": "Gera", "starting_hp": 5, "starting_mp": 4, "ability": "Holy protection shield bonuses" },
+        { "name": "Victor", "starting_hp": 6, "starting_mp": 3, "ability": "Bonus movement toward wounded allies" }
+      ]
+    },
+    {
+      "class_name": "Bloodmoon Nightrunner (Rogue)",
+      "source": "Core Box",
+      "mechanics": "Thieving tools bag and shadow token triggers",
+      "light_skills": [
+        "Bag Management (Draw free tool cards)",
+        "Sleight of Hand (Steal loot items from map zones)"
+      ],
+      "shadow_skills": [
+        "Master of Shadows (Ignore enemy line-of-sight engagement limits)",
+        "Assassinate (Add direct critical symbols to Shadow dice results)"
+      ],
+      "characters": [
+        { "name": "Feydra", "starting_hp": 5, "starting_mp": 4, "ability": "Stealth movement through monster zones" },
+        { "name": "Mist", "starting_hp": 4, "starting_mp": 5, "ability": "Free item swapping during combat actions" }
+      ]
+    },
+    {
+      "class_name": "Battle Wizard",
+      "source": "Core Box",
+      "mechanics": "Spell Amulet Track wheel management",
+      "light_skills": [
+        "Mana Surge (Fast MP regeneration when casting elements)",
+        "Elemental Focus (Boost ranged magic blast radii)"
+      ],
+      "shadow_skills": [
+        "Teleport (Ignore standard board physical barriers and traps)",
+        "Dark Magic (Trade health directly for high pierce damage)"
+      ],
+      "characters": [
+        { "name": "Nahias", "starting_hp": 5, "starting_mp": 5, "ability": "Continuous multi-spell casting discounts" },
+        { "name": "Valdis", "starting_hp": 4, "starting_mp": 6, "ability": "Manipulate Spell Amulet runes easily" },
+        { "name": "Ego the Demon Wizard", "starting_hp": 5, "starting_mp": 5, "ability": "Gain health when killing minion leaders" }
+      ]
+    },
+    {
+      "class_name": "Pit Fighter Berserker",
+      "source": "Core Box",
+      "mechanics": "Rage dashboard counter",
+      "light_skills": [
+        "Reckless Charge (Slam into enemy zones for immediate extra damage)",
+        "Thick Skin (Convert standard damage directly into active Rage tokens)"
+      ],
+      "shadow_skills": [
+        "Inner Rage (Re-roll generic attack dice when fighting low-light areas)",
+        "Executioner (Deal automatic execute wounds on badly damaged mobs)"
+      ],
+      "characters": [
+        { "name": "Mathrin", "starting_hp": 6, "starting_mp": 2, "ability": "Unleashes massive critical swings when angry" },
+        { "name": "Ivan", "starting_hp": 7, "starting_mp": 1, "ability": "Highest starting health pool to absorb heavy strikes" }
+      ]
+    },
+    {
+      "class_name": "Shaman",
+      "source": "Core Box",
+      "mechanics": "Element Trackers and Spirit Summon tokens",
+      "light_skills": [
+        "Elemental Harmony (Empower Frost Spirit freeze effects)",
+        "Sun Spirit (Heal target allies across line-of-sight paths)"
+      ],
+      "shadow_skills": [
+        "Flame Spirit (Explode element trackers into heavy splash damage)",
+        "Ghost Walk (Pass directly through enemies without taking reactions)"
+      ],
+      "characters": [
+        { "name": "Gheta", "starting_hp": 5, "starting_mp": 3, "ability": "Triggers rapid elemental spirit abilities" },
+        { "name": "Irk", "starting_hp": 4, "starting_mp": 3, "ability": "Switches baseline elemental tracks at turn starts" },
+        { "name": "Cassiel", "starting_hp": 5, "starting_mp": 4, "ability": "Gain mana whenever a summoned spirit deals damage" }
+      ]
+    },
+    {
+      "class_name": "Nightshade Ranger",
+      "source": "Core Box",
+      "mechanics": "Arrow deck tactical crafting",
+      "light_skills": [
+        "Scavenge Arrow (Recover discarded custom deck arrow cards for free)",
+        "Eagle Eye (Extend physical firearm/bow range over long map tiles)"
+      ],
+      "shadow_skills": [
+        "Shadow Arrow (Convert common dice results into direct un-blockable hits)",
+        "Vanish (Force roaming monsters to lose active targeting tracking)"
+      ],
+      "characters": [
+        { "name": "Lyn", "starting_hp": 5, "starting_mp": 3, "ability": "Draws bonus layout arrows when performing ranged actions" }
+      ]
+    },
+    {
+      "class_name": "Bard",
+      "source": "Bards & Tinkerers Expansion Box",
+      "mechanics": "Musical Chord Tokens and Song Songs",
+      "light_skills": [
+        "Harmonic Chorus (Buff movement steps for all surrounding teammates)",
+        "Hymn of Light (Area heal when triggering flawless chord combos)"
+      ],
+      "shadow_skills": [
+        "Discordant Melody (Confuse enemies to force friendly-fire damage)",
+        "Siren Song (Pull targets into traps or unfavorable combat zones)"
+      ],
+      "characters": [
+        { "name": "Dylan", "starting_hp": 5, "starting_mp": 4, "ability": "Generates bonus notes when performing support actions" },
+        { "name": "Thalia", "starting_hp": 6, "starting_mp": 3, "ability": "Adds defense dice to characters target by her songs" },
+        { "name": "Ryff", "starting_hp": 4, "starting_mp": 5, "ability": "Can change active melodies mid-turn without spending mana" }
+      ]
+    },
+    {
+      "class_name": "Tinkerer",
+      "source": "Bards & Tinkerers Expansion Box",
+      "mechanics": "ExoArmor and Construct upgrades",
+      "light_skills": [
+        "Innovate (Attach automated sentry turrets or tank treads)",
+        "Overclock (Force constructs to double action outputs for one turn)"
+      ],
+      "shadow_skills": [
+        "Sabotage (Drop hidden delayed bombs into adjacent dark corridors)",
+        "Stealth Construct (Deploy invisible spy bots that negate mob shields)"
+      ],
+      "characters": [
+        { "name": "Kaylee", "starting_hp": 5, "starting_mp": 4, "ability": "Reduces raw scrap component upgrade costs" },
+        { "name": "Daisy", "starting_hp": 4, "starting_mp": 5, "ability": "Pilots the custom ExoArmor chassis with reduced penalties" },
+        { "name": "Jebediah", "starting_hp": 5, "starting_mp": 3, "ability": "Instantly repairs mechanical minions during rests" }
+      ]
+    },
+    {
+      "class_name": "Necromancer",
+      "source": "Monks & Necromancers Expansion Box",
+      "mechanics": "Soul Track collection gauges",
+      "light_skills": [
+        "Reanimate (Raise fallen standard skeleton minion tokens)",
+        "Life Drain (Siphon incoming monster health pools to distribute to allies)"
+      ],
+      "shadow_skills": [
+        "Soul Harvest (Spend stored souls to execute high-tier shadow blast spells)",
+        "Grave Call (Root multiple targets inside a zone using darkness chains)"
+      ],
+      "characters": [
+        { "name": "Ygraine", "starting_hp": 4, "starting_mp": 5, "ability": "Harvests bonus souls immediately when leaders fall" },
+        { "name": "Mortemyr", "starting_hp": 5, "starting_mp": 4, "ability": "Sustains skeleton counts longer than basic limits" },
+        { "name": "Harriet", "starting_hp": 5, "starting_mp": 4, "ability": "Sacrifices health to boost raised creature attack values" }
+      ]
+    },
+    {
+      "class_name": "Monk",
+      "source": "Monks & Necromancers Expansion Box",
+      "mechanics": "Seven Spirit Chakras power matrix",
+      "light_skills": [
+        "Chakra Alignment (Unlock baseline defensive stances and focus heals)",
+        "Purity Stance (Cleanse negative statuses using active combat counters)"
+      ],
+      "shadow_skills": [
+        "Spirit Strike (Unleash combo-based un-armored fist martial attacks)",
+        "Shadow Step (Teleport directly behind targeted roaming monsters)"
+      ],
+      "characters": [
+        { "name": "Harin", "starting_hp": 6, "starting_mp": 3, "ability": "Unlocks high-tier spirit chakras ahead of schedule" },
+        { "name": "Riya", "starting_hp": 5, "starting_mp": 4, "ability": "Gains evasion re-rolls when unequipped with armor pieces" },
+        { "name": "Father Corvus", "starting_hp": 6, "starting_mp": 3, "ability": "Converts mana expenditures into direct physical armor pierce" }
+      ]
+    },
+    {
+      "class_name": "Druid",
+      "source": "Druids vs Beelzebub Expansion Box",
+      "mechanics": "Form shifting (Bear, Eagle, Raccoon)",
+      "light_skills": [
+        "Nature's Blessing (Grant area health restoration over entire tiles)",
+        "Eagle Aspect (Maximize flight movement paths and reveal map fog)"
+      ],
+      "shadow_skills": [
+        "Bear Aspect (Gain high defense values and shadow-shred execution claws)",
+        "Raccoon Aspect (Stealth past guards to steal keys or objective loot)"
+      ],
+      "characters": [
+        { "name": "Berko the Cursed", "starting_hp": 6, "starting_mp": 3, "ability": "Retains offensive stat items while shape-shifted" },
+        { "name": "Zuri", "starting_hp": 5, "starting_mp": 4, "ability": "Reduces the total mana action cost required to shift forms" }
+      ]
+    }
+  ]
+}

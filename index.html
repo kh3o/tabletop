@@ -10,39 +10,55 @@
     <link rel="manifest" href="./manifest.json">
 </head>
 <body>
-    <div id="app" data-game-engine="massive-darkness-2">
+    <div id="app" data-game-engine="massive-darkness-2" class="layout-vertical">
         
+        <!-- Layout Toggle -->
+        <div id="layout-bar">
+            <span id="layout-toggle" class="layout-btn" title="Toggle horizontal/vertical layout">‖</span>
+        </div>
+
+        <!-- Player Frame -->
         <section id="player-frame" class="frame expanded">
-            <div class="resume-hud">
-                <span class="hero-name">Elias (Paladin)</span>
-                <div class="hud-mini-stats">
-                    <span class="stat-badge hp">HP: <span class="hud-hp">10</span>/<span class="hud-maxhp">12</span></span>
-                    <span class="stat-badge mana">MP: <span class="hud-mp">4</span>/<span class="hud-maxmp">6</span></span>
-                    <span class="stat-badge xp">LVL: <span class="hud-lvl">2</span> (<span class="hud-xp">24</span> XP)</span>
-                </div>
+            <div class="player-frame-header" data-toggle-frame="player-frame">
+                <span class="frame-title">PLAYER STATS</span>
                 <div class="hud-toggle-icon">▲</div>
             </div>
 
+            <!-- Player grid cards - always visible even when collapsed -->
+            <div id="player-cards-grid" class="player-cards-grid"></div>
+
+            <!-- Collapsible content (character detail) -->
             <div class="frame-content">
+                <!-- Character selector -->
+                <div class="character-selector-row">
+                    <label class="selector-label">FOCUS:</label>
+                    <select id="character-selector" class="selector-select">
+                        <option value="">— Select character —</option>
+                    </select>
+                </div>
+
+                <!-- Focused character detail -->
                 <div class="focused-character-card" data-character-id="player1">
-                    <h2><span class="char-name">Elias</span> <span class="level-indicator">Level <span class="char-lvl">2</span></span></h2>
+                    <div class="focused-header">
+                        <h2><span class="char-name">Elias</span> <span class="level-indicator">Level <span class="char-lvl">2</span></span></h2>
+                    </div>
                     
                     <div class="stat-slider-group">
                         <div class="vector-control hp-vector">
                             <label>Health Points</label>
                             <div class="slider-interaction">
-                                <button class="btn btn-step" data-stat-type="hp" data-amount="-1">-1</button>
+                                <button class="btn btn-dmg" data-stat-type="hp" data-amount="-1">DMG</button>
                                 <div class="bar-container"><span class="bar-text">10 / 12</span></div>
-                                <button class="btn btn-step" data-stat-type="hp" data-amount="1">+1</button>
+                                <button class="btn btn-heal" data-stat-type="hp" data-amount="1">HEAL</button>
                             </div>
                         </div>
 
                         <div class="vector-control mana-vector">
                             <label>Mana Pool</label>
                             <div class="slider-interaction">
-                                <button class="btn btn-step" data-stat-type="mp" data-amount="-1">-1</button>
+                                <button class="btn btn-dmg" data-stat-type="mp" data-amount="-1">DMG</button>
                                 <div class="bar-container"><span class="bar-text">4 / 6</span></div>
-                                <button class="btn btn-step" data-stat-type="mp" data-amount="1">+1</button>
+                                <button class="btn btn-heal" data-stat-type="mp" data-amount="1">HEAL</button>
                             </div>
                         </div>
 
@@ -52,6 +68,7 @@
                                 <button class="btn btn-step" data-stat-type="xp" data-amount="-1">-1</button>
                                 <div class="bar-container readonly"><span class="bar-text">24 / 50 XP</span></div>
                                 <button class="btn btn-step" data-stat-type="xp" data-amount="1">+1</button>
+                                <button class="btn btn-add level-up-btn" id="btn-level-up" style="display:none;">LEVEL UP</button>
                             </div>
                         </div>
                     </div>
@@ -60,77 +77,45 @@
                         <div class="slot-placeholder">Class Skill Tree / Equipment Active</div>
                     </div>
                 </div>
-
-                <div class="party-hub-sidebar">
-                    <h3>Party Status</h3>
-                    <div class="party-member-row critical">
-                        <span>Jax (Rogue)</span>
-                        <div class="mini-bar color-hp" style="width: 15%;"></div>
-                        <span class="alert-tag">* LOW</span>
-                    </div>
-                    <div class="party-member-row">
-                        <span>Myra (Shaman)</span>
-                        <div class="mini-bar color-hp" style="width: 90%;"></div>
-                        <span class="level-up-tag">[LVL UP!]</span>
-                    </div>
-                </div>
             </div>
         </section>
 
+        <!-- Monster Frame -->
         <section id="monster-frame" class="frame collapsed">
-            <div class="resume-hud"> <!-- onclick removed -->
+            <div class="resume-hud" data-toggle-frame="monster-frame">
                 <span class="frame-title">Active Monsters Summary</span>
                 <div class="hud-mini-stats">
-                    <span>Threats: 2 Mobs</span>
-                    <span class="stat-badge mob-count">Total Figures: 7</span>
+                    <span>Threats: <span id="mob-count">0</span> Mobs</span>
+                    <span class="stat-badge mob-count">Total Figures: <span id="figure-count">0</span></span>
                 </div>
                 <div class="hud-toggle-icon">▼</div>
             </div>
 
             <div class="frame-content scrollable">
-                <div class="monster-card mob-type" data-mob-id="ghoul-mob-1">
-                    <div class="monster-header">
-                        <h4>GHOUL MOB <span class="sub-text">(Level 2 Pack)</span></h4>
-                        <button class="btn alert-btn clear-mob-trigger" data-mob-id="ghoul-mob-1">ROOM CLEAR / CLAIM XP</button>
+                <div id="monster-selector-panel" class="monster-selector-panel">
+                    <div class="selector-row">
+                        <span class="selector-label">ADD MONSTER:</span>
+                        <select id="selector-type" class="selector-select">
+                            <option value="group">Group (Leader + Minions)</option>
+                            <option value="roaming">Roaming Monster</option>
+                        </select>
+                        <select id="selector-monster" class="selector-select">
+                            <option value="">— Select monster —</option>
+                        </select>
+                        <button class="btn btn-add" id="btn-add-monster">+ SPAWN</button>
                     </div>
-
-                    <div class="mob-health-breakdown">
-                        <div class="entity-health-block encounter-bar">
-                            <span class="label">LEADER + MINIONS</span>
-                            <div class="bar-container"><span class="bar-text">15 / 15 HP</span></div>
-                        </div>
-                        
-                        <div class="minions-grid" data-mob-id="ghoul-mob-1">
-                        </div>
-                    </div>
-
-                    <div class="monster-controls">
-                        <button class="btn btn-dmg" data-mob-id="ghoul-mob-1" data-amount="-5">-5 DMG</button>
-                        <button class="btn btn-dmg" data-mob-id="ghoul-mob-1" data-amount="-1">-1 DMG</button>
-                        <button class="btn btn-heal" data-mob-id="ghoul-mob-1" data-amount="1">+1 HEAL</button>
-                        <span class="action-alert-msg" id="mob-ghoul-msg">Damage reduces total encounter HP</span>
+                    <div class="selector-info">
+                        <span>Auto-tier: <span id="auto-tier-display">1</span> · Minions: <span id="auto-minion-display">2</span></span>
                     </div>
                 </div>
 
-                <div class="monster-card boss-type" data-mob-id="cyclops-boss-1">
-                    <div class="monster-header">
-                        <h4>CYCLOPS <span class="sub-text">(Roaming Monster)</span></h4>
-                    </div>
-                    <div class="vector-control hp-vector">
-                        <div class="bar-container"><span class="bar-text">52 / 80 HP</span></div>
-                    </div>
-                    <div class="monster-controls">
-                        <button class="btn btn-dmg-macro" data-mob-id="cyclops-boss-1" data-amount="-10">-10</button>
-                        <button class="btn btn-dmg" data-mob-id="cyclops-boss-1" data-amount="-5">-5</button>
-                        <button class="btn btn-dmg" data-mob-id="cyclops-boss-1" data-amount="-1">-1</button>
-                        <button class="btn btn-heal" data-mob-id="cyclops-boss-1" data-amount="1">+1 HEAL</button>
-                    </div>
-                </div>
+                <div id="monster-cards-container"></div>
             </div>
         </section>
 
     </div>
     <script src="./src/js/ui-controller.js"></script>
+    <script src="./src/js/monster-library.js"></script>
     <script src="./src/js/app.js"></script>
     <script>
     if ('serviceWorker' in navigator) {
@@ -145,13 +130,5 @@
         });
     }
     </script>
-    <div style="display:none;">
-    <link rel="import" href="/src/components/player-card.html" id="player-card-import">
-    <link rel="import" href="/src/components/monster-group.html" id="monster-group-import">
-    <!-- Or simply paste the content of those files directly here inside a <div id="templates"> -->
-    <div id="template-container">
-        <!-- Paste the content of your two html files here -->
-    </div>
-    </div>
 </body>
 </html>

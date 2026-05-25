@@ -5,21 +5,24 @@
 
 const CACHE_NAME = 'tabletop-tracker-v1';
 const ASSETS_TO_CACHE = [
-    './', // Caches the root (index.html by default if start_url is './')
+    './',
     './index.html',
     './manifest.json',
     './src/css/core.css',
     './src/css/players.css',
     './src/css/monsters.css',
     './src/js/app.js',
+    './src/js/monster-library.js',
     './src/js/ui-controller.js',
-    './src/js/storage.js', // Although not fully implemented, it should be cached
+    './src/js/storage.js',
+    './src/data/massive-darkness-2/groups.base-game.json',
+    './src/data/massive-darkness-2/roaming.base-game.json',
+    './src/data/massive-darkness-2/characters.base-game.json',
     './src/components/player-card.html',
     './src/components/monster-group.html',
-    './src/assets/icons/icon-192x192.png', // Ensure these paths match your manifest
+    './src/assets/icons/icon-192x192.png',
     './src/assets/icons/icon-512x512.png',
-    // Game engine specific assets (add these as they become relevant or are created)
-    './src/engines/massive-darnkess-2/md2.css', // Typo from blueprint: massive-darnkess-2 vs massive-darkness-2
+    './src/engines/massive-darnkess-2/md2.css',
     './src/engines/massive-darnkess-2/md2.js'
 ];
 

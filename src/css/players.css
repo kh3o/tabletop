@@ -1,12 +1,142 @@
 /* Player Frame Specific Styles */
 #player-frame .frame-content {
-    grid-template-columns: 3fr minmax(200px, 1fr); /* Master-detail layout */
-    height: calc(100% - 50px); /* Account for resume-hud height */
+    grid-template-columns: 1fr;
+    height: calc(100% - 50px);
     gap: 10px;
     padding: 15px;
-    overflow-y: auto; /* Allow scrolling if content overflows */
+    overflow-y: auto;
 }
 
+/* Player Frame Header */
+.player-frame-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    height: 50px;
+    background-color: var(--taphous5e-dark-bg-2);
+    border-bottom: 1px solid var(--taphous5e-dark-border);
+    user-select: none;
+    cursor: pointer;
+}
+.player-frame-header .frame-title {
+    color: var(--taphous5e-dark-text-primary);
+    font-weight: bold;
+    font-size: 1rem;
+    letter-spacing: 1px;
+}
+.player-frame-header .hud-toggle-icon {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--taphous5e-dark-text-primary);
+}
+
+/* Player mini-cards grid - always visible */
+.player-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+    padding: 10px;
+}
+
+.player-mini-card {
+    background-color: var(--taphous5e-dark-bg-3);
+    border: 2px solid var(--taphous5e-dark-border-light);
+    border-radius: 6px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-height: 100px;
+}
+
+.player-mini-card .mini-name {
+    font-weight: bold;
+    font-size: 0.95rem;
+    color: var(--taphous5e-dark-text-primary);
+}
+.player-mini-card .mini-class {
+    font-size: 0.75rem;
+    color: var(--taphous5e-dark-text-secondary);
+    margin-left: 4px;
+}
+
+.player-mini-card .mini-stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    gap: 4px;
+}
+
+.player-mini-card .mini-stat-row .mini-label {
+    color: var(--taphous5e-dark-text-secondary);
+    font-weight: bold;
+}
+.player-mini-card .mini-stat-row .mini-value {
+    color: var(--taphous5e-dark-text-primary);
+}
+
+.player-mini-card .mini-stat-row .mini-bar-bg {
+    flex: 1;
+    height: 6px;
+    background-color: #0f0f12;
+    border-radius: 3px;
+    overflow: hidden;
+    min-width: 30px;
+}
+.player-mini-card .mini-stat-row .mini-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.2s;
+}
+.player-mini-card .mini-bar-hp .mini-bar-fill { background-color: var(--taphous5e-dark-highlight-red); }
+.player-mini-card .mini-bar-mp .mini-bar-fill { background-color: var(--taphous5e-dark-highlight-blue); }
+
+.player-mini-card .mini-level {
+    font-size: 0.8rem;
+    color: var(--taphous5e-dark-text-secondary);
+}
+.player-mini-card .mini-alert {
+    color: var(--taphous5e-dark-highlight-red);
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+.player-mini-card .mini-levelup {
+    color: var(--taphous5e-dark-highlight-orange);
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+.player-mini-card .mini-treasure {
+    color: #fbbf24;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+/* Character selector at top of lower section */
+.character-selector-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+.character-selector-row .selector-select {
+    background-color: var(--taphous5e-dark-bg-1);
+    color: var(--taphous5e-dark-text-primary);
+    border: 1px solid var(--taphous5e-dark-border-light);
+    padding: 8px 10px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    flex: 1;
+    min-width: 150px;
+}
+.character-selector-row .selector-select:focus {
+    outline: none;
+    border-color: var(--taphous5e-dark-highlight-blue);
+}
+
+/* Focused character card */
 .focused-character-card {
     background-color: var(--taphous5e-dark-bg-3);
     border-radius: 6px;
@@ -17,7 +147,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.focused-character-card h2 {
+.focused-header h2 {
     color: var(--taphous5e-dark-text-primary);
     margin-bottom: 5px;
 }
@@ -53,7 +183,7 @@
 }
 
 .dynamic-inventory-zone {
-    flex-grow: 1; /* Takes remaining space */
+    flex-grow: 1;
     background-color: var(--taphous5e-dark-bg-1);
     border: 1px dashed var(--taphous5e-dark-border);
     border-radius: 4px;
@@ -62,69 +192,19 @@
     justify-content: center;
     color: var(--taphous5e-dark-text-secondary);
     font-style: italic;
-    min-height: 80px; /* Ensure some visibility when empty */
+    min-height: 80px;
 }
 
-.party-hub-sidebar {
-    background-color: var(--taphous5e-dark-bg-1);
-    border-left: 1px solid var(--taphous5e-dark-border);
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    overflow-y: auto;
+/* Reuse btn-dmg for player DMG buttons, btn-heal for HEAL */
+.player-mini-card .btn-dmg,
+.player-mini-card .btn-heal {
+    padding: 2px 6px;
+    font-size: 0.75rem;
 }
 
-.party-hub-sidebar h3 {
-    color: var(--taphous5e-dark-text-primary);
-    margin-bottom: 5px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid var(--taphous5e-dark-border);
-}
-
-.party-member-row {
-    background-color: var(--taphous5e-dark-bg-3);
-    padding: 10px;
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column; /* Changed to column for better stack on small screens */
-    gap: 5px;
-    align-items: flex-start; /* Align text to start */
-}
-
-.party-member-row.critical {
-    border-left: 4px solid var(--taphous5e-dark-highlight-red);
-}
-
-.mini-bar {
-    width: 100%; /* Full width within its container */
-    height: 6px;
-    background-color: var(--taphous5e-dark-highlight-red); /* Default to HP for party status */
-    border-radius: 3px;
-    transition: width 0.3s ease;
-}
-
-.alert-tag, .level-up-tag {
-    font-size: 0.8rem;
-    font-weight: bold;
-    margin-top: 5px;
-}
-
-.alert-tag {
-    color: var(--taphous5e-dark-highlight-red);
-}
-
-.level-up-tag {
-    color: var(--taphous5e-dark-highlight-orange);
-}
-
-/* Responsive Adjustments for Player Frame */
+/* Responsive */
 @media (max-width: 768px) {
-    #player-frame .frame-content {
-        grid-template-columns: 1fr; /* Stack main card and sidebar on smaller screens */
-    }
-    .party-hub-sidebar {
-        border-left: none; /* Remove border when stacked */
-        border-top: 1px solid var(--taphous5e-dark-border); /* Add top border for separation */
+    .player-cards-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     }
 }
