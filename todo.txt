@@ -1,0 +1,35 @@
+1.global game
+1.1 local reset button ( store data/reset on join ( no local memory )/debug mode )
+1.2 When the game will be live and selecting character - Filter to load 'expansions' for character and enemies selection.
+1.3 goal is to host a game on a server (sufabed), and players stats will be shared from those connected to the session
+1.4 DARKNESS tracker
+1.4.1 add the game tracker bar on top to 'change round', as well as a 'ROUND' phases reminder.
+1.4.2 HERO PHASE > MONSTER PHASE > LVL UP > DARKNESS PHASE
+1.4.3 img of tracker 1 side https://preview.redd.it/roaming-monster-and-darkness-tracker-v0-a3uehm94gfud1.png?width=1080&crop=smart&auto=webp&s=5dfb988b0eded479fd688155ee1c6bf1f978952b
+
+
+2. layout
+2.3 at one point, have a 'card mode' for characters, to display the actual 'card' for skills
+
+
+3. characters
+3.1 add character
+3.2 For character selection, offer options to 'sort by box and/or sort by class
+
+3.3 add skill selection / images / progression
+3.3.1 show level 1 skills, then available lv2 + unused lv1, then lv3 ( if lv1 is unlocked )
+3.3.2 show/hide locked skills ( maybe even a full tree view would be nice, like diablo )
+
+4. monsters
+4.1 gather all data, including 'EFFECTS' / 'Description', ie, IMP explode on death
+4.2 add basic dices/defense stats ( black and blue dies )
+
+5. items
+5.1 potion/mana tracker to character?
+
+6. equipment
+6.1 support it? if so, need full tier list and stats and images, and a real monster card and dashboard to know what they attack with
+
+7. systems
+7.1 only heroes added on a device should be able to change their health
+7.2 any players logged can changed the darkness tracker, or monsters data ( add, dmg, adjust healt, removed )

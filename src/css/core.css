@@ -37,29 +37,8 @@ body {
     margin: 0;
 }
 
-/* Layout Toggle Bar */
-#layout-bar {
-    display: flex;
-    justify-content: flex-end;
-    padding: 2px 4px;
-    background: transparent;
-}
-.layout-btn {
-    cursor: pointer;
-    color: var(--taphous5e-dark-text-secondary);
-    font-size: 1.2rem;
-    padding: 2px 8px;
-    border: 1px solid var(--taphous5e-dark-border);
-    border-radius: 4px;
-    user-select: none;
-}
-.layout-btn:hover {
-    color: var(--taphous5e-dark-text-primary);
-    background-color: var(--taphous5e-dark-button-hover);
-}
-
-/* App layout: vertical (default) */
-#app.layout-vertical {
+/* App container: nav always on top, frames fill rest */
+#app {
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -68,14 +47,97 @@ body {
     gap: 6px;
 }
 
-/* App layout: horizontal */
-#app.layout-horizontal {
+/* Top Navigation Bar */
+#top-nav {
     display: flex;
-    flex-direction: row;
-    height: 100vh;
-    width: 100vw;
-    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 12px;
+    background-color: var(--taphous5e-dark-bg-2);
+    border: 1px solid var(--taphous5e-dark-border);
+    border-radius: 6px;
+    user-select: none;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.nav-title {
+    font-weight: bold;
+    font-size: 0.95rem;
+    color: var(--taphous5e-dark-text-primary);
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+.nav-actions {
+    display: flex;
     gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.nav-btn {
+    background-color: var(--taphous5e-dark-button-bg);
+    color: var(--taphous5e-dark-text-primary);
+    border: 1px solid var(--taphous5e-dark-button-border);
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s;
+}
+.nav-btn:hover {
+    background-color: var(--taphous5e-dark-button-hover);
+}
+
+.nav-toggle {
+    color: var(--taphous5e-dark-text-secondary);
+}
+.nav-toggle:hover {
+    color: var(--taphous5e-dark-text-primary);
+}
+
+.nav-reset {
+    color: var(--taphous5e-dark-highlight-red);
+    border-color: var(--taphous5e-dark-highlight-red);
+}
+.nav-add {
+    color: #22c55e;
+    border-color: #22c55e;
+}
+.nav-add:hover {
+    background-color: #166534;
+    color: #fff;
+}
+
+.nav-reset:hover {
+    background-color: var(--taphous5e-dark-damage-btn-bg);
+}
+
+/* Quick spawn panel */
+.quick-spawn-panel {
+    background-color: var(--taphous5e-dark-bg-3);
+    border: 1px solid var(--taphous5e-dark-border-light);
+    border-radius: 6px;
+    padding: 10px;
+    flex-shrink: 0;
+}
+
+/* Frames container — gets layout class */
+#frames-container {
+    display: flex;
+    gap: 6px;
+    flex: 1;
+    min-height: 0;
+}
+
+#frames-container.layout-vertical {
+    flex-direction: column;
+}
+#frames-container.layout-horizontal {
+    flex-direction: row;
 }
 
 /* Frame - AND behavior (each frame toggles independently) */
@@ -89,11 +151,11 @@ body {
     transition: flex 0.3s ease;
 }
 
-#app.layout-vertical .frame.expanded {
+#frames-container.layout-vertical .frame.expanded {
     flex: 1;
     min-height: 100px;
 }
-#app.layout-horizontal .frame.expanded {
+#frames-container.layout-horizontal .frame.expanded {
     flex: 1;
     min-width: 200px;
 }
@@ -107,7 +169,7 @@ body {
 .frame.collapsed {
     flex: 0 0 auto;
 }
-#app.layout-horizontal .frame.collapsed {
+#frames-container.layout-horizontal .frame.collapsed {
     flex: 0 0 auto;
     min-width: 50px;
 }
@@ -211,7 +273,6 @@ body {
     cursor: default;
 }
 
-/* Text overlay on top of segmented bars */
 .bar-text {
     position: absolute;
     z-index: 2;
@@ -261,7 +322,6 @@ body {
     background-color: #2d2d39;
 }
 
-/* Colors for the squares */
 .hp-vector .segment.filled,
 .entity-health-block.encounter-bar .segment.filled { background-color: var(--taphous5e-dark-highlight-red); }
 .mana-vector .segment.filled { background-color: var(--taphous5e-dark-highlight-blue); }

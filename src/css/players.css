@@ -1,8 +1,13 @@
 /* Player Frame Specific Styles */
-#player-frame .frame-content {
-    grid-template-columns: 1fr;
-    height: calc(100% - 50px);
-    gap: 10px;
+#player-frame.frame {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+#player-frame.frame.expanded .frame-content {
+    display: block;
+    flex: 1;
+    min-height: 0;
     padding: 15px;
     overflow-y: auto;
 }
@@ -37,6 +42,27 @@
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 10px;
     padding: 10px;
+}
+
+/* Mini turn button */
+.mini-turn-btn {
+    background-color: var(--taphous5e-dark-button-bg);
+    color: var(--taphous5e-dark-text-secondary);
+    border: 1px solid var(--taphous5e-dark-button-border);
+    padding: 2px 6px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-left: auto;
+}
+.mini-turn-btn:hover {
+    background-color: var(--taphous5e-dark-button-hover);
+}
+.mini-turn-btn.toggled {
+    background-color: #166534;
+    border-color: #22c55e;
+    color: #fff;
 }
 
 .player-mini-card {
@@ -113,6 +139,24 @@
     font-size: 0.8rem;
 }
 
+/* Player detail cards container */
+#player-detail-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 10px;
+}
+.detail-card {
+    border: 1px solid var(--taphous5e-dark-border-light);
+    background-color: var(--taphous5e-dark-bg-3);
+}
+.detail-card .potion-chip {
+    cursor: pointer;
+}
+.detail-card .potion-chip:hover {
+    background-color: var(--taphous5e-dark-bg-4);
+}
+
 /* Character selector at top of lower section */
 .character-selector-row {
     display: flex;
@@ -147,9 +191,58 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.focused-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
 .focused-header h2 {
     color: var(--taphous5e-dark-text-primary);
     margin-bottom: 5px;
+}
+.focused-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+}
+.turn-done-btn {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    background-color: var(--taphous5e-dark-button-bg);
+    border-color: var(--taphous5e-dark-button-border);
+    color: var(--taphous5e-dark-text-secondary);
+    border-radius: 4px;
+}
+.turn-done-btn.toggled {
+    background-color: #166534;
+    border-color: #22c55e;
+    color: #fff;
+}
+
+/* Potion chips */
+.potion-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 5px;
+}
+.potion-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background-color: var(--taphous5e-dark-bg-2);
+    border: 1px solid var(--taphous5e-dark-border-light);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    user-select: none;
+}
+.potion-chip:hover {
+    background-color: var(--taphous5e-dark-bg-4);
+}
+.potion-chip .potion-count {
+    font-weight: bold;
+    color: var(--taphous5e-dark-text-primary);
 }
 
 .level-indicator {

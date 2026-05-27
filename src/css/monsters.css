@@ -1,9 +1,14 @@
 /* Monster Frame Specific Styles */
-#monster-frame .frame-content {
-    grid-template-columns: 1fr;
-    height: calc(100% - 50px);
+#monster-frame.frame {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+#monster-frame.frame.expanded .frame-content {
+    display: block;
+    flex: 1;
+    min-height: 0;
     padding: 15px;
-    gap: 15px;
     overflow-y: auto;
 }
 
@@ -64,6 +69,97 @@
     font-size: 0.8rem;
     display: flex;
     gap: 10px;
+}
+
+/* Monster cards container: mobs left, roaming right */
+#monster-cards-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.monster-column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.monster-column-header {
+    color: var(--taphous5e-dark-text-secondary);
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 4px 0;
+    border-bottom: 1px solid var(--taphous5e-dark-border);
+    margin-bottom: 4px;
+}
+
+/* Compact fig blocks */
+.fig-compact-row {
+    display: flex;
+    gap: 6px;
+    padding: 4px 0;
+    flex-wrap: wrap;
+}
+.fig-compact-block {
+    background-color: var(--taphous5e-dark-bg-2);
+    border: 2px solid var(--taphous5e-dark-border-light);
+    border-radius: 4px;
+    padding: 6px 4px;
+    min-width: 48px;
+    width: 52px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+}
+.fig-compact-block .fig-hp-text {
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: var(--taphous5e-dark-text-primary);
+}
+.fig-compact-block .fig-inner-bar {
+    display: flex;
+    gap: 1px;
+    width: 100%;
+    height: 8px;
+}
+.fig-inner-segment {
+    flex: 1;
+    border-radius: 1px;
+    background-color: #2d2d39;
+}
+.fig-inner-segment.filled {
+    background-color: var(--taphous5e-dark-highlight-red);
+}
+
+/* Alive state */
+.fig-compact-block.alive {
+    border-color: #22c55e;
+    background-color: rgba(34, 197, 94, 0.08);
+}
+.fig-compact-block.alive .fig-inner-segment.filled {
+    background-color: #22c55e;
+}
+
+/* Partial state */
+.fig-compact-block.partial {
+    border-color: var(--taphous5e-dark-highlight-orange);
+    background-color: rgba(217, 119, 6, 0.08);
+}
+.fig-compact-block.partial .fig-inner-segment.filled {
+    background-color: var(--taphous5e-dark-highlight-orange);
+}
+
+/* Dead state */
+.fig-compact-block.dead {
+    opacity: 0.35;
+    border-color: #333;
+    background-color: var(--taphous5e-dark-bg-0);
+}
+.fig-compact-block.dead .fig-hp-text {
+    color: var(--taphous5e-dark-highlight-red);
 }
 
 /* --- Monster Card --- */
@@ -152,73 +248,7 @@
     padding: 4px 0;
 }
 
-/* Sub-header between total bar and minion grid */
-.figurines-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 4px;
-    margin-bottom: 2px;
-    padding: 2px 0;
-}
-.figurines-header span {
-    color: var(--taphous5e-dark-text-secondary);
-    font-size: 0.8rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-.figurines-header hr {
-    flex: 1;
-    border: none;
-    border-top: 1px solid var(--taphous5e-dark-border);
-}
 
-/* Each figurine box */
-.minions-grid .entity-health-block {
-    background-color: var(--taphous5e-dark-bg-3);
-    border: 2px solid var(--taphous5e-dark-border-light);
-    padding: 12px 8px;
-    border-radius: 6px;
-    min-height: 70px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.minions-grid .entity-health-block.leader {
-    border-color: var(--taphous5e-dark-highlight-red);
-    background-color: var(--taphous5e-dark-bg-2);
-}
-
-/* Alive state */
-.minions-grid .entity-health-block.alive {
-    border-color: #22c55e;
-}
-.minions-grid .entity-health-block.alive .mini-health-dot {
-    color: #22c55e;
-}
-
-/* Partial/damaged state */
-.minions-grid .entity-health-block.partial {
-    border-color: var(--taphous5e-dark-highlight-orange);
-    background-color: rgba(217, 119, 6, 0.1);
-}
-.minions-grid .entity-health-block.partial .mini-health-dot {
-    color: var(--taphous5e-dark-highlight-orange);
-}
-
-/* Dead state */
-.minions-grid .entity-health-block.dead {
-    opacity: 0.4;
-    background-color: var(--taphous5e-dark-bg-0);
-    border-color: #333;
-    text-decoration: line-through;
-}
-.minions-grid .entity-health-block.dead .mini-health-dot {
-    color: var(--taphous5e-dark-highlight-red);
-}
 
 /* Monster Controls */
 .monster-controls {
@@ -258,6 +288,9 @@
     }
     .monster-controls {
         justify-content: center;
+    }
+    #monster-cards-container {
+        grid-template-columns: 1fr;
     }
     .selector-row {
         flex-direction: column;

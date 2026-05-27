@@ -10,12 +10,21 @@
     <link rel="manifest" href="./manifest.json">
 </head>
 <body>
-    <div id="app" data-game-engine="massive-darkness-2" class="layout-vertical">
+    <div id="app" data-game-engine="massive-darkness-2">
         
-        <!-- Layout Toggle -->
-        <div id="layout-bar">
-            <span id="layout-toggle" class="layout-btn" title="Toggle horizontal/vertical layout">‖</span>
-        </div>
+        <!-- Top Navigation Bar (always pinned on top) -->
+        <nav id="top-nav">
+            <span class="nav-title">TABLETOP TRACKER</span>
+            <div class="nav-actions">
+                <button class="nav-btn" id="nav-characters">CHARACTERS</button>
+                <button class="nav-btn" id="nav-monsters">MONSTERS</button>
+                <button class="nav-btn nav-toggle" id="nav-layout" title="Toggle horizontal/vertical layout">‖ LAYOUT</button>
+                <button class="nav-btn nav-reset" id="nav-reset" title="Reset to defaults">↺ RESET</button>
+            </div>
+        </nav>
+
+        <!-- Frames container (gets layout direction class) -->
+        <div id="frames-container" class="layout-horizontal">
 
         <!-- Player Frame -->
         <section id="player-frame" class="frame expanded">
@@ -35,12 +44,24 @@
                     <select id="character-selector" class="selector-select">
                         <option value="">— Select character —</option>
                     </select>
+                    <button class="btn btn-add" id="btn-add-character" style="font-size:0.85rem;padding:6px 10px;">+ ADD</button>
                 </div>
+
+                <!-- Player detail cards container (for player2+) -->
+                <div id="player-detail-cards"></div>
 
                 <!-- Focused character detail -->
                 <div class="focused-character-card" data-character-id="player1">
                     <div class="focused-header">
                         <h2><span class="char-name">Elias</span> <span class="level-indicator">Level <span class="char-lvl">2</span></span></h2>
+                        <div class="focused-actions">
+                            <button class="btn btn-step turn-done-btn" id="btn-turn-done" data-player-id="player1">✓ TURN</button>
+                            <button class="btn alert-btn remove-player-trigger" data-player-id="player1">REMOVE</button>
+                        </div>
+                    </div>
+                    <div class="potion-row">
+                        <span class="potion-chip" id="hp-potion" data-potion="hp">🧪 <span class="potion-count">2</span></span>
+                        <span class="potion-chip" id="mp-potion" data-potion="mp">🔮 <span class="potion-count">1</span></span>
                     </div>
                     
                     <div class="stat-slider-group">
@@ -81,7 +102,7 @@
         </section>
 
         <!-- Monster Frame -->
-        <section id="monster-frame" class="frame collapsed">
+        <section id="monster-frame" class="frame expanded">
             <div class="resume-hud" data-toggle-frame="monster-frame">
                 <span class="frame-title">Active Monsters Summary</span>
                 <div class="hud-mini-stats">
@@ -91,7 +112,7 @@
                 <div class="hud-toggle-icon">▼</div>
             </div>
 
-            <div class="frame-content scrollable">
+            <div class="frame-content scrollable" id="monster-cards-scroll">
                 <div id="monster-selector-panel" class="monster-selector-panel">
                     <div class="selector-row">
                         <span class="selector-label">ADD MONSTER:</span>
@@ -108,10 +129,11 @@
                         <span>Auto-tier: <span id="auto-tier-display">1</span> · Minions: <span id="auto-minion-display">2</span></span>
                     </div>
                 </div>
-
                 <div id="monster-cards-container"></div>
             </div>
         </section>
+
+        </div><!-- /frames-container -->
 
     </div>
     <script src="./src/js/ui-controller.js"></script>

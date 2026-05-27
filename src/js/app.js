@@ -6,7 +6,8 @@
 const state = {
     gameEngine: 'massive-darkness-2',
     players: [],
-    monsters: []
+    monsters: [],
+    turnDone: {}  // track turn state per player id
 };
 
 // --- Character Library ---
@@ -106,10 +107,11 @@ function toggleFrame(frameId) {
 
 // --- Layout Toggle ---
 function toggleLayout() {
-    const app = document.getElementById('app');
-    const isVertical = app.classList.contains('layout-vertical');
-    app.classList.remove('layout-vertical', 'layout-horizontal');
-    app.classList.add(isVertical ? 'layout-horizontal' : 'layout-vertical');
+    const container = document.getElementById('frames-container');
+    if (!container) return;
+    const isVertical = container.classList.contains('layout-vertical');
+    container.classList.remove('layout-vertical', 'layout-horizontal');
+    container.classList.add(isVertical ? 'layout-horizontal' : 'layout-vertical');
     try { localStorage.setItem('tt_layout', isVertical ? 'horizontal' : 'vertical'); } catch(e) {}
 }
 
@@ -178,10 +180,25 @@ function selectCharacter(charId) {
     if (!charId) return;
     const charDef = CharacterLibrary.get(charId);
     if (!charDef) return;
+
+    // If we already have this character, just re-select it
+    const existing = state.players.find(p => p.libId === charId);
+    if (existing) return;
+
+    // Add as a new character
+    addCharacterById(charId);
+}
+
+function addCharacterById(charId) {
+    const charDef = CharacterLibrary.get(charId);
+    if (!charDef) return;
     const nextLevel = CharacterLibrary.getNextLevelEntry(1);
-    state.players = [{
-        id: 'player1',
-        libId: charId,
+    const usedIds = new Set(state.players.map(p => p.libId));
+    if (usedIds.has(charId)) return;
+    const newId = `player${state.players.length + 1}`;
+    state.players.push({
+        id: newId,
+        libId: charDef.id,
         name: charDef.name,
         className: charDef.className,
         classSource: charDef.classSource,
@@ -194,11 +211,36 @@ function selectCharacter(charId) {
         maxMana: charDef.starting_mp,
         currentXp: 0,
         maxXp: nextLevel ? nextLevel.xp_required : 0
-    }];
+    });
     Storage.save('players', state.players);
     renderPlayers();
     renderMonsters();
     updateLevelUpButton();
+}
+
+// --- Add Character (random) ---
+function addCharacter() {
+    const usedIds = new Set(state.players.map(p => p.libId));
+    const available = CharacterLibrary.getList().filter(c => !usedIds.has(c.id));
+    if (available.length === 0) return;
+    const pick = available[Math.floor(Math.random() * available.length)];
+    addCharacterById(pick.id);
+}
+
+// --- Turn toggle ---
+function toggleTurn(charId) {
+    state.turnDone[charId] = !state.turnDone[charId];
+    renderPlayers();
+}
+
+// --- Potion click ---
+function adjustPotion(potionType, delta, chipElement) {
+    const chip = chipElement || document.getElementById(`${potionType}-potion`);
+    if (!chip) return;
+    const countEl = chip.querySelector('.potion-count');
+    let count = parseInt(countEl.textContent) || 0;
+    count = Math.max(0, Math.min(5, count + delta));
+    countEl.textContent = count;
 }
 
 // --- Monster Spawn ---
@@ -240,6 +282,7 @@ function removeMob(mobId) {
 function renderPlayers() {
     renderPlayerGrid();
     renderFocusedPlayer();
+    renderPlayerDetailCards();
 }
 
 function renderPlayerGrid() {
@@ -252,9 +295,11 @@ function renderPlayerGrid() {
         const mpPct = p.maxMana > 0 ? (p.currentMana / p.maxMana * 100) : 0;
         const isLow = p.currentHp <= p.maxHp * 0.25;
         const canLevel = p.currentXp >= p.maxXp;
+        const isTurnDone = state.turnDone[p.id] || false;
 
         const card = document.createElement('div');
         card.className = 'player-mini-card';
+        card.dataset.playerId = p.id;
         card.innerHTML = `
             <div>
                 <span class="mini-name">${p.name}</span>
@@ -274,6 +319,7 @@ function renderPlayerGrid() {
                 <span class="mini-level">Lv.${p.level}</span>
                 ${isLow ? '<span class="mini-alert">⚠ LOW</span>' : ''}
                 ${canLevel ? '<span class="mini-levelup">⭐ LVL UP!</span>' : ''}
+                <button class="mini-turn-btn ${isTurnDone ? 'toggled' : ''}" data-player-id="${p.id}">${isTurnDone ? '✓ DONE' : '✓'}</button>
             </div>
         `;
         grid.appendChild(card);
@@ -283,8 +329,15 @@ function renderPlayerGrid() {
 function renderFocusedPlayer() {
     const player1 = state.players.find(p => p.id === 'player1');
     const card = document.querySelector('.focused-character-card[data-character-id="player1"]');
-    if (!player1 || !card) return;
-
+    if (!card) return;
+    
+    // Hide card if no player1 exists
+    if (!player1) {
+        card.style.display = 'none';
+        return;
+    }
+    card.style.display = '';
+    
     const nameEl = card.querySelector('.char-name');
     if (nameEl) nameEl.textContent = player1.name;
     const lvlEl = card.querySelector('.char-lvl');
@@ -293,9 +346,83 @@ function renderFocusedPlayer() {
     const heroName = document.querySelector('.player-frame-header .frame-title');
     if (heroName) heroName.textContent = 'PLAYER STATS';
 
+    const isTurnDone = state.turnDone['player1'] || false;
+    const turnBtn = card.querySelector('.turn-done-btn');
+    if (turnBtn) {
+        turnBtn.classList.toggle('toggled', isTurnDone);
+        turnBtn.textContent = isTurnDone ? '✓ DONE' : '✓ TURN';
+    }
+
     updateSegmentedBar(card.querySelector('.hp-vector .bar-container'), player1.currentHp, player1.maxHp, 'hp');
     updateSegmentedBar(card.querySelector('.mana-vector .bar-container'), player1.currentMana, player1.maxMana, 'mp');
     updateSegmentedBar(card.querySelector('.xp-vector .bar-container'), player1.currentXp, player1.maxXp, 'xp');
+}
+
+function renderPlayerDetailCards() {
+    const container = document.getElementById('player-detail-cards');
+    if (!container) return;
+    container.innerHTML = '';
+
+    state.players.forEach(p => {
+        if (p.id === 'player1') return; // player1 is rendered as the focused card in HTML
+
+        const hpPct = p.maxHp > 0 ? (p.currentHp / p.maxHp * 100) : 0;
+        const mpPct = p.maxMana > 0 ? (p.currentMana / p.maxMana * 100) : 0;
+        const isTurnDone = state.turnDone[p.id] || false;
+
+        const card = document.createElement('div');
+        card.className = 'focused-character-card detail-card';
+        card.dataset.characterId = p.id;
+        card.innerHTML = `
+            <div class="focused-header">
+                <h2><span class="char-name">${p.name}</span> <span class="level-indicator">Level <span class="char-lvl">${p.level}</span></span></h2>
+                <div class="focused-actions">
+                    <button class="btn btn-step turn-done-btn ${isTurnDone ? 'toggled' : ''}" data-player-id="${p.id}">${isTurnDone ? '✓ DONE' : '✓ TURN'}</button>
+                    <button class="btn alert-btn remove-player-trigger" data-player-id="${p.id}">REMOVE</button>
+                </div>
+            </div>
+            <div class="potion-row">
+                <span class="potion-chip detail-potion-chip" data-potion="hp" data-player-id="${p.id}">🧪 <span class="potion-count">2</span></span>
+                <span class="potion-chip detail-potion-chip" data-potion="mp" data-player-id="${p.id}">🔮 <span class="potion-count">1</span></span>
+            </div>
+            
+            <div class="stat-slider-group">
+                <div class="vector-control hp-vector">
+                    <label>Health Points</label>
+                    <div class="slider-interaction">
+                        <button class="btn btn-dmg" data-character-id="${p.id}" data-stat-type="hp" data-amount="-1">DMG</button>
+                        <div class="bar-container"></div>
+                        <button class="btn btn-heal" data-character-id="${p.id}" data-stat-type="hp" data-amount="1">HEAL</button>
+                    </div>
+                </div>
+
+                <div class="vector-control mana-vector">
+                    <label>Mana Pool</label>
+                    <div class="slider-interaction">
+                        <button class="btn btn-dmg" data-character-id="${p.id}" data-stat-type="mp" data-amount="-1">DMG</button>
+                        <div class="bar-container"></div>
+                        <button class="btn btn-heal" data-character-id="${p.id}" data-stat-type="mp" data-amount="1">HEAL</button>
+                    </div>
+                </div>
+
+                <div class="vector-control xp-vector">
+                    <label>Experience (Progress Tracker)</label>
+                    <div class="slider-interaction">
+                        <button class="btn btn-step" data-character-id="${p.id}" data-stat-type="xp" data-amount="-1">-1</button>
+                        <div class="bar-container readonly"></div>
+                        <button class="btn btn-step" data-character-id="${p.id}" data-stat-type="xp" data-amount="1">+1</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        container.appendChild(card);
+
+        // Update bars
+        updateSegmentedBar(card.querySelector('.hp-vector .bar-container'), p.currentHp, p.maxHp, 'hp');
+        updateSegmentedBar(card.querySelector('.mana-vector .bar-container'), p.currentMana, p.maxMana, 'mp');
+        updateSegmentedBar(card.querySelector('.xp-vector .bar-container'), p.currentXp, p.maxXp, 'xp');
+    });
 }
 
 // --- Monster Rendering ---
@@ -304,82 +431,103 @@ function renderMonsters() {
     if (!container) return;
     container.innerHTML = '';
 
-    state.monsters.forEach(m => {
-        const card = document.createElement('div');
-        card.className = `monster-card ${m.type === 'boss-type' ? 'boss-type' : 'mob-type'}`;
-        card.dataset.mobId = m.id;
+    const mobs = state.monsters.filter(m => m.type === 'mob-type');
+    const roamings = state.monsters.filter(m => m.type === 'boss-type');
 
-        if (m.type === 'boss-type') {
-            card.innerHTML = `
-                <div class="monster-header">
-                    <h4>${m.name} <span class="sub-text">(Roaming · Tier ${m.tier})</span></h4>
-                    <button class="btn alert-btn remove-mob-trigger" data-mob-id="${m.id}">REMOVE</button>
-                </div>
-                <div class="vector-control hp-vector">
-                    <div class="bar-container"></div>
-                </div>
-                <div class="monster-controls">
-                    <button class="btn btn-dmg-macro" data-mob-id="${m.id}" data-amount="-10">-10</button>
-                    <button class="btn btn-dmg" data-mob-id="${m.id}" data-amount="-5">-5</button>
-                    <button class="btn btn-dmg" data-mob-id="${m.id}" data-amount="-1">-1</button>
-                    <button class="btn btn-heal" data-mob-id="${m.id}" data-amount="1">+1 HEAL</button>
-                    ${m.treasure > 0 ? `<span class="treasure-badge">✦ ${m.treasure} TR</span>` : ''}
-                </div>
-            `;
-            container.appendChild(card);
-            updateSegmentedBar(card.querySelector('.bar-container'), m.currentHp, m.maxHp, 'boss');
-        } else {
-            card.innerHTML = `
-                <div class="monster-header">
-                    <h4>${m.name} <span class="sub-text">(Group · Tier ${m.tier})</span></h4>
-                    <button class="btn alert-btn remove-mob-trigger" data-mob-id="${m.id}">REMOVE</button>
-                </div>
-                <div class="mob-health-breakdown">
-                    <div class="entity-health-block encounter-bar">
-                        <span class="label">LEADER + MINIONS</span>
-                        <div class="bar-container"></div>
-                    </div>
-                    <div class="figurines-header"><hr><span>FIGURINES</span><hr></div>
-                    <div class="minions-grid" data-mob-id="${m.id}"></div>
-                </div>
-                <div class="monster-controls">
-                    <button class="btn btn-dmg" data-mob-id="${m.id}" data-amount="-5">-5 DMG</button>
-                    <button class="btn btn-dmg" data-mob-id="${m.id}" data-amount="-1">-1 DMG</button>
-                    <button class="btn btn-heal" data-mob-id="${m.id}" data-amount="1">+1 HEAL</button>
-                    ${m.treasure > 0 ? `<span class="treasure-badge">✦ ${m.treasure} TR</span>` : ''}
-                </div>
-            `;
-            container.appendChild(card);
-            updateSegmentedBar(card.querySelector('.encounter-bar .bar-container'), m.currentHp, m.totalHp, 'mob');
-            renderMinionGrid(card, m);
-        }
+    // Mob column
+    const mobCol = document.createElement('div');
+    mobCol.className = 'monster-column';
+    mobCol.innerHTML = '<div class="monster-column-header">MOB GROUPS</div>';
+    mobs.forEach(m => {
+        const card = createMobCard(m);
+        mobCol.appendChild(card);
     });
+    container.appendChild(mobCol);
+
+    // Roaming column
+    const roamCol = document.createElement('div');
+    roamCol.className = 'monster-column';
+    roamCol.innerHTML = '<div class="monster-column-header">ROAMING BOSSES</div>';
+    roamings.forEach(m => {
+        const card = createRoamingCard(m);
+        roamCol.appendChild(card);
+    });
+    container.appendChild(roamCol);
+
     updateMobSummary();
 }
 
-function renderMinionGrid(card, m) {
-    const grid = card.querySelector('.minions-grid');
-    if (!grid) return;
-    grid.innerHTML = '';
+function createMobCard(m) {
+    const card = document.createElement('div');
+    card.className = 'monster-card mob-type';
+    card.dataset.mobId = m.id;
+
     const baseHp = m.baseHp;
     let remainingDamage = m.totalHp - m.currentHp;
-    const letters = 'ABCDEFGHIJKLMNOP'.split('');
-    const states = [];
+    let blocksHtml = '';
+
     for (let i = m.minionCount - 1; i >= 0; i--) {
         const dmg = Math.min(remainingDamage, baseHp);
         const hp = baseHp - dmg;
         remainingDamage -= dmg;
-        states.unshift({
-            status: hp <= 0 ? 'dead' : (hp >= baseHp ? 'alive' : 'partial'),
-            text: hp <= 0 ? '[X]' : (hp >= baseHp ? `${baseHp}/${baseHp}` : `${hp}/${baseHp}`)
-        });
+
+        let status, hpText;
+        if (hp <= 0) { status = 'dead'; hpText = '[X]'; }
+        else if (hp >= baseHp) { status = 'alive'; hpText = `${baseHp}/${baseHp}`; }
+        else { status = 'partial'; hpText = `${hp}/${baseHp}`; }
+
+        blocksHtml = `
+            <div class="fig-compact-block ${status}">
+                <span class="fig-hp-text">${hpText}</span>
+            </div>
+        ` + blocksHtml;
     }
-    states.forEach((s, i) => {
-        const block = document.createElement('div');
-        block.className = `entity-health-block ${i === 0 ? 'leader' : 'minion'} ${s.status}`;
-        block.innerHTML = `<span class="label">${i === 0 ? 'LEADER' : `MINION ${letters[i - 1]}`}</span><div class="mini-health-dot">${s.text}</div>`;
-        grid.appendChild(block);
-    });
+
+    card.innerHTML = `
+        <div class="monster-header">
+            <h4>${m.name} <span class="sub-text">(Tier ${m.tier})</span></h4>
+            <button class="btn alert-btn remove-mob-trigger" data-mob-id="${m.id}">REMOVE</button>
+        </div>
+        <div class="mob-health-breakdown">
+            <div class="entity-health-block encounter-bar">
+                <div class="bar-container"></div>
+            </div>
+            <div class="fig-compact-row">${blocksHtml}</div>
+        </div>
+        <div class="monster-controls">
+            <button class="btn btn-dmg" data-mob-id="${m.id}" data-amount="-5">-5 DMG</button>
+            <button class="btn btn-dmg" data-mob-id="${m.id}" data-amount="-1">-1 DMG</button>
+            <button class="btn btn-heal" data-mob-id="${m.id}" data-amount="1">+1 HEAL</button>
+            ${m.treasure > 0 ? `<span class="treasure-badge">✦ ${m.treasure} TR</span>` : ''}
+        </div>
+    `;
+    // Use updateSegmentedBar for the encounter bar (one segment per HP)
+    updateSegmentedBar(card.querySelector('.encounter-bar .bar-container'), m.currentHp, m.totalHp, 'mob');
+    return card;
+}
+
+function createRoamingCard(m) {
+    const card = document.createElement('div');
+    card.className = 'monster-card boss-type';
+    card.dataset.mobId = m.id;
+    card.innerHTML = `
+        <div class="monster-header">
+            <h4>${m.name} <span class="sub-text">(Tier ${m.tier})</span></h4>
+            <button class="btn alert-btn remove-mob-trigger" data-mob-id="${m.id}">REMOVE</button>
+        </div>
+        <div class="vector-control hp-vector">
+            <div class="bar-container"></div>
+        </div>
+        <div class="monster-controls">
+            <button class="btn btn-dmg-macro" data-mob-id="${m.id}" data-amount="-10">-10</button>
+            <button class="btn btn-dmg" data-mob-id="${m.id}" data-amount="-5">-5</button>
+            <button class="btn btn-dmg" data-mob-id="${m.id}" data-amount="-1">-1</button>
+            <button class="btn btn-heal" data-mob-id="${m.id}" data-amount="1">+1 HEAL</button>
+            ${m.treasure > 0 ? `<span class="treasure-badge">✦ ${m.treasure} TR</span>` : ''}
+        </div>
+    `;
+    updateSegmentedBar(card.querySelector('.bar-container'), m.currentHp, m.maxHp, 'boss');
+    return card;
 }
 
 function updateMobSummary() {
@@ -396,6 +544,7 @@ function updateMobSummary() {
 // --- Segmented Bar ---
 function updateSegmentedBar(container, current, max, labelType) {
     if (!container) return;
+    // Clear and rebuild
     container.classList.add('segmented');
     container.innerHTML = '';
     for (let i = 0; i < max; i++) {
@@ -440,10 +589,37 @@ function populateCharacterSelector() {
     });
 }
 
+// --- Navigation handlers ---
+function focusFrame(frameId) {
+    const target = document.getElementById(frameId);
+    if (!target) return;
+    document.querySelectorAll('.frame').forEach(f => {
+        const shouldExpand = f.id === frameId;
+        f.classList.toggle('expanded', shouldExpand);
+        f.classList.toggle('collapsed', !shouldExpand);
+        const icon = f.querySelector('.hud-toggle-icon');
+        if (icon) icon.textContent = shouldExpand ? '▲' : '▼';
+    });
+}
+
+function resetToDefaults() {
+    if (!confirm('Reset all data? This will clear players and monsters.')) return;
+    localStorage.removeItem('tt_players');
+    localStorage.removeItem('tt_monsters');
+    localStorage.removeItem('tt_layout');
+    location.reload();
+}
+
 // --- Event Delegation ---
 document.body.addEventListener('click', (e) => {
-    // Layout toggle
-    if (e.target.id === 'layout-toggle') { toggleLayout(); return; }
+    // Nav: Characters
+    if (e.target.id === 'nav-characters') { focusFrame('player-frame'); return; }
+    // Nav: Monsters
+    if (e.target.id === 'nav-monsters') { focusFrame('monster-frame'); return; }
+    // Nav: Layout toggle
+    if (e.target.id === 'nav-layout') { toggleLayout(); return; }
+    // Nav: Reset
+    if (e.target.id === 'nav-reset') { resetToDefaults(); return; }
 
     // Frame Toggle
     const header = e.target.closest('.player-frame-header, .resume-hud');
@@ -452,21 +628,62 @@ document.body.addEventListener('click', (e) => {
         if (frameId) { toggleFrame(frameId); return; }
     }
 
-    // LEVEL UP
-    if (e.target.id === 'btn-level-up') { levelUp(); return; }
-
-    // Player Buttons (DMG/HEAL)
-    const pBtn = e.target.closest('.focused-character-card .btn');
-    if (pBtn && !pBtn.classList.contains('level-up-btn')) {
-        const pCard = pBtn.closest('.focused-character-card');
-        const charId = pCard.dataset.characterId;
-        const statType = pBtn.dataset.statType;
-        const amount = parseInt(pBtn.dataset.amount) || 0;
-        updatePlayerStat(charId, statType, amount);
+    // Remove player
+    const removeBtn = e.target.closest('.remove-player-trigger');
+    if (removeBtn) {
+        const pid = removeBtn.dataset.playerId;
+        if (pid) {
+            state.players = state.players.filter(x => x.id !== pid);
+            delete state.turnDone[pid];
+            // Renumber players sequentially to keep IDs consistent
+            const newTurnDone = {};
+            state.players.forEach((p, idx) => {
+                const newId = `player${idx + 1}`;
+                if (state.turnDone[p.id]) newTurnDone[newId] = true;
+                p.id = newId;
+            });
+            state.turnDone = newTurnDone;
+            Storage.save('players', state.players);
+            renderPlayers();
+            renderMonsters();
+            updateLevelUpButton();
+        }
         return;
     }
 
-    // Spawn Monster
+    // Add Character
+    if (e.target.id === 'btn-add-character') { addCharacter(); return; }
+
+    // Turn done toggle (both mini-card and detail card)
+    const turnBtn = e.target.closest('.turn-done-btn, .mini-turn-btn');
+    if (turnBtn) {
+        // For the player1 static button, the charId comes from parent card or click target
+        const charId = turnBtn.dataset.playerId || turnBtn.closest('.focused-character-card')?.dataset?.characterId;
+        if (charId) { toggleTurn(charId); return; }
+    }
+
+    // Potion click (adds +1 on click)
+    const potionChip = e.target.closest('.potion-chip');
+    if (potionChip) {
+        const type = potionChip.dataset.potion;
+        adjustPotion(type, 1, potionChip);
+        return;
+    }
+
+    // LEVEL UP
+    if (e.target.id === 'btn-level-up') { levelUp(); return; }
+
+    // Player Buttons (DMG/HEAL) - works for both focused card and detail cards
+    const pBtn = e.target.closest('.focused-character-card .btn');
+    if (pBtn && !pBtn.classList.contains('level-up-btn')) {
+        const pCard = pBtn.closest('.focused-character-card');
+        const charId = pBtn.dataset.characterId || pCard.dataset.characterId;
+        const statType = pBtn.dataset.statType;
+        const amount = parseInt(pBtn.dataset.amount) || 0;
+        if (charId) { updatePlayerStat(charId, statType, amount); return; }
+    }
+
+    // Spawn Monster (in-frame selector)
     if (e.target.id === 'btn-add-monster') {
         const type = document.getElementById('selector-type').value;
         const monsterId = document.getElementById('selector-monster').value;
@@ -498,8 +715,11 @@ async function init() {
 
     const savedLayout = (() => { try { return localStorage.getItem('tt_layout'); } catch(e) { return null; } })();
     if (savedLayout === 'horizontal') {
-        document.getElementById('app').classList.remove('layout-vertical');
-        document.getElementById('app').classList.add('layout-horizontal');
+        const container = document.getElementById('frames-container');
+        if (container) {
+            container.classList.remove('layout-vertical');
+            container.classList.add('layout-horizontal');
+        }
     }
 
     await Promise.all([MonsterLibrary.load(), CharacterLibrary.load()]);
@@ -507,21 +727,24 @@ async function init() {
     state.players = Storage.load('players') || [];
     state.monsters = Storage.load('monsters') || [];
 
+    // Restore turn states from any stored data
+    state.turnDone = {};
+
     renderPlayers();
     renderMonsters();
     populateSelector();
     populateCharacterSelector();
     updateLevelUpButton();
 
-    // Auto-spawn 4 players if none saved
+    // Auto-spawn 3 players if none saved
     if (state.players.length === 0 && CharacterLibrary.getList().length > 0) {
-        // Shuffle and pick 4
+        // Shuffle and pick 3
         const list = [...CharacterLibrary.getList()];
         for (let i = list.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [list[i], list[j]] = [list[j], list[i]];
         }
-        const chosen = list.slice(0, Math.min(4, list.length));
+        const chosen = list.slice(0, Math.min(3, list.length));
 
         const nextLvl = CharacterLibrary.getNextLevelEntry(1);
         state.players = chosen.map((charDef, idx) => ({
@@ -549,6 +772,29 @@ async function init() {
         renderMonsters();
         updateLevelUpButton();
     }
+
+    // Auto-spawn default monsters if none saved
+    if (state.monsters.length === 0) {
+        const groupList = MonsterLibrary.getList('group');
+        const roamingList = MonsterLibrary.getList('roaming');
+        
+        if (groupList.length > 0) {
+            spawnMonster('group', groupList[0].id);
+        }
+        if (roamingList.length > 0) {
+            spawnMonster('roaming', roamingList[0].id);
+        }
+    }
+
+    // Right-click subtracts potion
+    document.body.addEventListener('contextmenu', (e) => {
+        const potionChip = e.target.closest('.potion-chip');
+        if (potionChip) {
+            e.preventDefault();
+            const type = potionChip.dataset.potion;
+            adjustPotion(type, -1, potionChip);
+        }
+    });
 }
 
 init();
