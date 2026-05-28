@@ -1,0 +1,408 @@
+{
+  "game": "Massive Darkness 2: Hellscape",
+  "category": "Roaming Monsters",
+  "monsters": [
+    {
+      "id": "andra",
+      "name": "Andra",
+      "ranks": [
+        {
+          "rank": 1,
+          "image_reference": "andra_r1.jpg",
+          "health": "5 / Hero",
+          "rewards": {
+            "treasure_tokens": 2,
+            "loot_cards": [
+              {
+                "tier": "Blue Gem"
+              }
+            ]
+          },
+          "defense": {
+            "blue_dice": 2,
+            "shadow_retaliation_dice": 1
+          },
+          "combat_profiles": {
+            "melee": {
+              "yellow_dice": 1,
+              "orange_dice": 0,
+              "shadow_retaliation_dice": 1
+            },
+            "ranged": {
+              "yellow_dice": 1,
+              "orange_dice": 0,
+              "shadow_retaliation_dice": 1
+            }
+          },
+          "special_abilities": [
+            "If Andra is in the Dungeon: Andra attacks the Hero with the lowest Health in LoS, if possible. Then, remove Andra from the Dungeon.",
+            "If Andra is not in the Dungeon: Place Andra in a Zone adjacent to the Hero with the lowest Health. Then Andra attacks that Hero."
+          ],
+          "bam_effects": [
+            {
+              "trigger": "Combat 1 BAM!",
+              "effect": "Deal 1 Wound to another Hero with the lowest Health in LoS."
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "image_reference": "andra_r2.jpg",
+          "health": "7 / Hero",
+          "rewards": {
+            "treasure_tokens": 2,
+            "loot_cards": [
+              {
+                "tier": "Purple Gem / Crown"
+              }
+            ]
+          },
+          "defense": {
+            "blue_dice": 3,
+            "shadow_retaliation_dice": 1
+          },
+          "combat_profiles": {
+            "melee": {
+              "yellow_dice": 1,
+              "orange_dice": 1,
+              "shadow_retaliation_dice": 1
+            },
+            "ranged": {
+              "yellow_dice": 1,
+              "orange_dice": 1,
+              "shadow_retaliation_dice": 1
+            }
+          },
+          "special_abilities": [
+            "If Andra is in the Dungeon: Andra attacks the Hero with the lowest Health in LoS, if possible. Then, remove Andra from the Dungeon.",
+            "If Andra is not in the Dungeon: Place Andra in a Zone adjacent to the Hero with the lowest Health. Then Andra attacks that Hero."
+          ],
+          "bam_effects": [
+            {
+              "trigger": "Combat 1 BAM!",
+              "effect": "Deal 2 Wounds to another Hero with the lowest Health in LoS."
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "image_reference": "andra_r3.jpg",
+          "health": "10 / Hero",
+          "rewards": {
+            "treasure_tokens": 0,
+            "loot_cards": [
+              {
+                "tier": "Purple Gem / Crown"
+              },
+              {
+                "tier": "Purple Gem / Crown"
+              },
+              {
+                "tier": "Purple Gem / Crown"
+              }
+            ]
+          },
+          "defense": {
+            "blue_dice": 5,
+            "shadow_retaliation_dice": 1
+          },
+          "combat_profiles": {
+            "melee": {
+              "yellow_dice": 1,
+              "orange_dice": 2,
+              "shadow_retaliation_dice": 1
+            },
+            "ranged": {
+              "yellow_dice": 1,
+              "orange_dice": 2,
+              "shadow_retaliation_dice": 1
+            }
+          },
+          "special_abilities": [
+            "If Andra is in the Dungeon: Andra attacks the Hero with the lowest Health in LoS, if possible. Then, remove Andra from the Dungeon.",
+            "If Andra is not in the Dungeon: Place Andra in a Zone adjacent to the Hero with the lowest Health. Then Andra attacks that Hero."
+          ],
+          "bam_effects": [
+            {
+              "trigger": "Combat 1 BAM!",
+              "effect": "Deal 2 Wounds to another Hero with the lowest Health in LoS."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lyidan_incubus_lord",
+      "name": "Lyidan, Incubus Lord",
+      "ranks": [
+        {
+          "rank": 1,
+          "image_reference": "lyidan_incubus_lord_r1.jpg",
+          "health": "7 / Hero",
+          "rewards": {
+            "treasure_tokens": 2,
+            "loot_cards": [
+              {
+                "tier": "Blue Gem"
+              }
+            ]
+          },
+          "defense": {
+            "blue_dice": 2,
+            "shadow_retaliation_dice": 1
+          },
+          "combat_profiles": {
+            "melee": {
+              "yellow_dice": 0,
+              "orange_dice": 1,
+              "shadow_retaliation_dice": 2
+            }
+          },
+          "special_abilities": [
+            "If Lyidan is in a Light Zone: Lyidan takes 3 Wounds and moves to the closest Shadow Zone.",
+            "If there is a Hero up to 3 Zones away (regardless of LoS): Place Lyidan in the Zone with the furthest Hero up to 3 Zones away (regardless of LoS). Add 1 Fire token to that Hero and attack them."
+          ],
+          "bam_effects": [
+            {
+              "trigger": "Attack 1 BAM!",
+              "effect": "After combat, resolve all Fire tokens on the defending Hero (once per combat)."
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "image_reference": "lyidan_incubus_lord_r2.jpg",
+          "health": "10 / Hero",
+          "rewards": {
+            "treasure_tokens": 2,
+            "loot_cards": [
+              {
+                "tier": "Purple Gem / Crown"
+              }
+            ]
+          },
+          "defense": {
+            "blue_dice": 2,
+            "shadow_retaliation_dice": 1
+          },
+          "combat_profiles": {
+            "melee": {
+              "yellow_dice": 0,
+              "orange_dice": 2,
+              "shadow_retaliation_dice": 1
+            }
+          },
+          "special_abilities": [
+            "If Lyidan is in a Light Zone: Lyidan takes 5 Wounds and moves to the closest Shadow Zone.",
+            "If there is a Hero up to 3 Zones away (regardless of LoS): Place Lyidan in the Zone with the furthest Hero up to 3 Zones away (regardless of LoS). Add 1 Fire token to that Hero and attack them."
+          ],
+          "bam_effects": [
+            {
+              "trigger": "Attack 1 BAM!",
+              "effect": "After combat, resolve all Fire tokens on the defending Hero using 1 Orange die instead (once per combat)."
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "image_reference": "lyidan_incubus_lord_r3.jpg",
+          "health": "12 / Hero",
+          "rewards": {
+            "treasure_tokens": 0,
+            "loot_cards": [
+              {
+                "tier": "Purple Gem / Crown"
+              },
+              {
+                "tier": "Purple Gem / Crown"
+              },
+              {
+                "tier": "Purple Gem / Crown"
+              }
+            ]
+          },
+          "defense": {
+            "blue_dice": 4,
+            "shadow_retaliation_dice": 1
+          },
+          "combat_profiles": {
+            "melee": {
+              "yellow_dice": 2,
+              "orange_dice": 2,
+              "shadow_retaliation_dice": 1
+            }
+          },
+          "special_abilities": [
+            "If Lyidan is in a Light Zone: Lyidan takes 6 Wounds and moves to the closest Shadow Zone.",
+            "If there is a Hero up to 3 Zones away (regardless of LoS): Place Lyidan in the Zone with the furthest Hero up to 3 Zones away (regardless of LoS). Add 2 Fire tokens to that Hero and attack them."
+          ],
+          "bam_effects": [
+            {
+              "trigger": "Attack 1 BAM!",
+              "effect": "After combat, resolve all Fire tokens on the defending Hero using 1 Orange die instead (once per combat)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the_ghoul",
+      "name": "The Ghoul",
+      "ranks": [
+        {
+          "rank": 1,
+          "image_reference": "the_ghoul_r1.jpg",
+          "health": "5 / Hero",
+          "rewards": {
+            "treasure_tokens": 2,
+            "loot_cards": [
+              {
+                "tier": "Blue Gem"
+              }
+            ]
+          },
+          "defense": {
+            "blue_dice": 2,
+            "shadow_retaliation_dice": 1
+          },
+          "combat_profiles": {
+            "melee": {
+              "yellow_dice": 0,
+              "orange_dice": 1,
+              "shadow_retaliation_dice": 1
+            }
+          },
+          "special_abilities": [
+            "If there is a Minion in The Ghoul's Zone: Kill 1 Minion in that Zone (players choose) and The Ghoul Heals 5.",
+            "Otherwise: The Ghoul moves 3 Zones toward the closest Hero and attacks them, if possible."
+          ],
+          "bam_effects": [
+            {
+              "trigger": "Combat 1 BAM!",
+              "effect": "Move the closest Mob 1 Zone toward The Ghoul."
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "image_reference": "the_ghoul_r2.jpg",
+          "health": "8 / Hero",
+          "rewards": {
+            "treasure_tokens": 2,
+            "loot_cards": [
+              {
+                "tier": "Purple Gem / Crown"
+              }
+            ]
+          },
+          "defense": {
+            "blue_dice": 3,
+            "shadow_retaliation_dice": 1
+          },
+          "combat_profiles": {
+            "melee": {
+              "yellow_dice": 0,
+              "orange_dice": 2,
+              "shadow_retaliation_dice": 2
+            }
+          },
+          "special_abilities": [
+            "If there is a Minion in The Ghoul's Zone: Kill 1 Minion in that Zone (players choose) and The Ghoul Heals 8.",
+            "Otherwise: The Ghoul moves 3 Zones toward the closest Hero and attacks them, if possible."
+          ],
+          "bam_effects": [
+            {
+              "trigger": "Combat 1 BAM!",
+              "effect": "Move the closest Mob 1 Zone toward The Ghoul."
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "image_reference": "the_ghoul_r3.jpg",
+          "health": "10 / Hero",
+          "rewards": {
+            "treasure_tokens": 0,
+            "loot_cards": [
+              {
+                "tier": "Purple Gem / Crown"
+              },
+              {
+                "tier": "Purple Gem / Crown"
+              },
+              {
+                "tier": "Purple Gem / Crown"
+              }
+            ]
+          },
+          "defense": {
+            "blue_dice": 4,
+            "shadow_retaliation_dice": 1
+          },
+          "combat_profiles": {
+            "melee": {
+              "yellow_dice": 0,
+              "orange_dice": 3,
+              "shadow_retaliation_dice": 3
+            }
+          },
+          "special_abilities": [
+            "If there is a Minion in The Ghoul's Zone: Kill 1 Minion in that Zone (players choose) and The Ghoul Heals 10.",
+            "Otherwise: The Ghoul moves 3 Zones toward the closest Hero and attacks them, if possible."
+          ],
+          "bam_effects": [
+            {
+              "trigger": "Combat 1 BAM!",
+              "effect": "Move the closest Mob 1 Zone toward The Ghoul."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ytheria_undead_queen",
+      "name": "Ytheria, Undead Queen",
+      "ranks": [
+        {
+          "rank": 2,
+          "image_reference": "ytheira_undead_queen_r2.jpg",
+          "health": "6 / Hero",
+          "rewards": {
+            "treasure_tokens": 2,
+            "loot_cards": [
+              {
+                "tier": "Purple Gem / Crown"
+              }
+            ]
+          },
+          "defense": {
+            "blue_dice": 2,
+            "shadow_retaliation_dice": 1
+          },
+          "combat_profiles": {
+            "melee": {
+              "yellow_dice": 0,
+              "orange_dice": 1,
+              "shadow_retaliation_dice": 0
+            },
+            "ranged": {
+              "yellow_dice": 1,
+              "orange_dice": 1,
+              "shadow_retaliation_dice": 1
+            }
+          },
+          "special_abilities": [
+            "If there is more than 1 Hero in LoS: Ytheria attacks each Hero in LoS (resolve each attack separately).",
+            "If there is only 1 Hero in LoS: Ytheria attacks that Hero with +1 Yellow and 1 Orange die."
+          ],
+          "bam_effects": [
+            {
+              "trigger": "Attack 1 BAM!",
+              "effect": "Add 1 Minion to each Mob in the Dungeon, if possible."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
