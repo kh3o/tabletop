@@ -9,7 +9,7 @@
         {
           "rank": 1,
           "image_reference": "andra_r1.jpg",
-          "health": "5 / Hero",
+          "health": 6,
           "rewards": {
             "treasure_tokens": 2,
             "loot_cards": [
@@ -48,7 +48,7 @@
         {
           "rank": 2,
           "image_reference": "andra_r2.jpg",
-          "health": "7 / Hero",
+          "health": 8,
           "rewards": {
             "treasure_tokens": 2,
             "loot_cards": [
@@ -87,7 +87,7 @@
         {
           "rank": 3,
           "image_reference": "andra_r3.jpg",
-          "health": "10 / Hero",
+          "health": 10,
           "rewards": {
             "treasure_tokens": 0,
             "loot_cards": [
@@ -138,7 +138,7 @@
         {
           "rank": 1,
           "image_reference": "lyidan_incubus_lord_r1.jpg",
-          "health": "7 / Hero",
+          "health": 7,
           "rewards": {
             "treasure_tokens": 2,
             "loot_cards": [
@@ -172,7 +172,7 @@
         {
           "rank": 2,
           "image_reference": "lyidan_incubus_lord_r2.jpg",
-          "health": "10 / Hero",
+          "health": 8,
           "rewards": {
             "treasure_tokens": 2,
             "loot_cards": [
@@ -206,7 +206,7 @@
         {
           "rank": 3,
           "image_reference": "lyidan_incubus_lord_r3.jpg",
-          "health": "12 / Hero",
+          "health": 9,
           "rewards": {
             "treasure_tokens": 0,
             "loot_cards": [
@@ -252,7 +252,7 @@
         {
           "rank": 1,
           "image_reference": "the_ghoul_r1.jpg",
-          "health": "5 / Hero",
+          "health": 6,
           "rewards": {
             "treasure_tokens": 2,
             "loot_cards": [
@@ -286,7 +286,7 @@
         {
           "rank": 2,
           "image_reference": "the_ghoul_r2.jpg",
-          "health": "8 / Hero",
+          "health": 7,
           "rewards": {
             "treasure_tokens": 2,
             "loot_cards": [
@@ -320,7 +320,7 @@
         {
           "rank": 3,
           "image_reference": "the_ghoul_r3.jpg",
-          "health": "10 / Hero",
+          "health": 8,
           "rewards": {
             "treasure_tokens": 0,
             "loot_cards": [
@@ -366,7 +366,7 @@
         {
           "rank": 2,
           "image_reference": "ytheira_undead_queen_r2.jpg",
-          "health": "6 / Hero",
+          "health": 9,
           "rewards": {
             "treasure_tokens": 2,
             "loot_cards": [

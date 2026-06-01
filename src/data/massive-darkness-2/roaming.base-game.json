@@ -1,52 +1,56 @@
-[
-  {
-    "id": "cyclops",
-    "name": "Cyclops",
-    "expansion": "base-game",
-    "tiers": [
-      { "tier": 1, "hp": 40, "treasure": 1 },
-      { "tier": 2, "hp": 60, "treasure": 2 },
-      { "tier": 3, "hp": 80, "treasure": 3 }
-    ]
-  },
-  {
-    "id": "troll",
-    "name": "Troll",
-    "expansion": "base-game",
-    "tiers": [
-      { "tier": 1, "hp": 35, "treasure": 1 },
-      { "tier": 2, "hp": 50, "treasure": 2 },
-      { "tier": 3, "hp": 70, "treasure": 3 }
-    ]
-  },
-  {
-    "id": "manticore",
-    "name": "Manticore",
-    "expansion": "base-game",
-    "tiers": [
-      { "tier": 1, "hp": 45, "treasure": 2 },
-      { "tier": 2, "hp": 65, "treasure": 3 },
-      { "tier": 3, "hp": 90, "treasure": 4 }
-    ]
-  },
-  {
-    "id": "lich",
-    "name": "Lich",
-    "expansion": "base-game",
-    "tiers": [
-      { "tier": 1, "hp": 30, "treasure": 2 },
-      { "tier": 2, "hp": 45, "treasure": 3 },
-      { "tier": 3, "hp": 60, "treasure": 4 }
-    ]
-  },
-  {
-    "id": "dragon-whelp",
-    "name": "Dragon Whelp",
-    "expansion": "base-game",
-    "tiers": [
-      { "tier": 1, "hp": 50, "treasure": 3 },
-      { "tier": 2, "hp": 75, "treasure": 4 },
-      { "tier": 3, "hp": 100, "treasure": 5 }
-    ]
-  }
-]
+{
+  "game": "Massive Darkness 2",
+  "category": "Roaming Monsters",
+  "monsters": [
+    {
+      "id": "cyclops",
+      "name": "Cyclops",
+      "expansion": "base-game",
+      "ranks": [
+        { "rank": 1, "health": 40, "treasure": 1 },
+        { "rank": 2, "health": 60, "treasure": 2 },
+        { "rank": 3, "health": 80, "treasure": 3 }
+      ]
+    },
+    {
+      "id": "troll",
+      "name": "Troll",
+      "expansion": "base-game",
+      "ranks": [
+        { "rank": 1, "health": 35, "treasure": 1 },
+        { "rank": 2, "health": 50, "treasure": 2 },
+        { "rank": 3, "health": 70, "treasure": 3 }
+      ]
+    },
+    {
+      "id": "manticore",
+      "name": "Manticore",
+      "expansion": "base-game",
+      "ranks": [
+        { "rank": 1, "health": 45, "treasure": 2 },
+        { "rank": 2, "health": 65, "treasure": 3 },
+        { "rank": 3, "health": 90, "treasure": 4 }
+      ]
+    },
+    {
+      "id": "lich",
+      "name": "Lich",
+      "expansion": "base-game",
+      "ranks": [
+        { "rank": 1, "health": 30, "treasure": 2 },
+        { "rank": 2, "health": 45, "treasure": 3 },
+        { "rank": 3, "health": 60, "treasure": 4 }
+      ]
+    },
+    {
+      "id": "dragon-whelp",
+      "name": "Dragon Whelp",
+      "expansion": "base-game",
+      "ranks": [
+        { "rank": 1, "health": 50, "treasure": 3 },
+        { "rank": 2, "health": 75, "treasure": 4 },
+        { "rank": 3, "health": 100, "treasure": 5 }
+      ]
+    }
+  ]
+}

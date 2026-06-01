@@ -1,82 +1,86 @@
-[
-  {
-    "id": "imperial-imp",
-    "name": "Imperial Imp",
-    "expansion": "base-game",
-    "tiers": [
-      { "tier": 1, "hp": 3, "treasure": 1 },
-      { "tier": 2, "hp": 4, "treasure": 2 },
-      { "tier": 3, "hp": 5, "treasure": 3 }
-    ]
-  },
-  {
-    "id": "ghoul",
-    "name": "Ghoul",
-    "expansion": "base-game",
-    "tiers": [
-      { "tier": 1, "hp": 3, "treasure": 0 },
-      { "tier": 2, "hp": 5, "treasure": 1 },
-      { "tier": 3, "hp": 6, "treasure": 2 }
-    ]
-  },
-  {
-    "id": "skeleton-warrior",
-    "name": "Skeleton Warrior",
-    "expansion": "base-game",
-    "tiers": [
-      { "tier": 1, "hp": 4, "treasure": 1 },
-      { "tier": 2, "hp": 5, "treasure": 1 },
-      { "tier": 3, "hp": 7, "treasure": 2 }
-    ]
-  },
-  {
-    "id": "giant-spider",
-    "name": "Giant Spider",
-    "expansion": "base-game",
-    "tiers": [
-      { "tier": 1, "hp": 3, "treasure": 0 },
-      { "tier": 2, "hp": 5, "treasure": 1 },
-      { "tier": 3, "hp": 6, "treasure": 1 }
-    ]
-  },
-  {
-    "id": "goblin-scout",
-    "name": "Goblin Scout",
-    "expansion": "base-game",
-    "tiers": [
-      { "tier": 1, "hp": 2, "treasure": 0 },
-      { "tier": 2, "hp": 3, "treasure": 1 },
-      { "tier": 3, "hp": 4, "treasure": 1 }
-    ]
-  },
-  {
-    "id": "dark-elf",
-    "name": "Dark Elf",
-    "expansion": "base-game",
-    "tiers": [
-      { "tier": 1, "hp": 4, "treasure": 1 },
-      { "tier": 2, "hp": 6, "treasure": 2 },
-      { "tier": 3, "hp": 7, "treasure": 3 }
-    ]
-  },
-  {
-    "id": "stone-golem",
-    "name": "Stone Golem",
-    "expansion": "base-game",
-    "tiers": [
-      { "tier": 1, "hp": 5, "treasure": 2 },
-      { "tier": 2, "hp": 7, "treasure": 2 },
-      { "tier": 3, "hp": 9, "treasure": 3 }
-    ]
-  },
-  {
-    "id": "orc-brute",
-    "name": "Orc Brute",
-    "expansion": "base-game",
-    "tiers": [
-      { "tier": 1, "hp": 4, "treasure": 1 },
-      { "tier": 2, "hp": 6, "treasure": 1 },
-      { "tier": 3, "hp": 8, "treasure": 2 }
-    ]
-  }
-]
+{
+  "game": "Massive Darkness 2",
+  "category": "Group Monsters",
+  "monsters": [
+    {
+      "id": "imperial-imp",
+      "name": "Imperial Imp",
+      "expansion": "base-game",
+      "ranks": [
+        { "rank": 1, "health": 3, "treasure": 1 },
+        { "rank": 2, "health": 4, "treasure": 2 },
+        { "rank": 3, "health": 5, "treasure": 3 }
+      ]
+    },
+    {
+      "id": "ghoul",
+      "name": "Ghoul",
+      "expansion": "base-game",
+      "ranks": [
+        { "rank": 1, "health": 3, "treasure": 0 },
+        { "rank": 2, "health": 5, "treasure": 1 },
+        { "rank": 3, "health": 6, "treasure": 2 }
+      ]
+    },
+    {
+      "id": "skeleton-warrior",
+      "name": "Skeleton Warrior",
+      "expansion": "base-game",
+      "ranks": [
+        { "rank": 1, "health": 4, "treasure": 1 },
+        { "rank": 2, "health": 5, "treasure": 1 },
+        { "rank": 3, "health": 7, "treasure": 2 }
+      ]
+    },
+    {
+      "id": "giant-spider",
+      "name": "Giant Spider",
+      "expansion": "base-game",
+      "ranks": [
+        { "rank": 1, "health": 3, "treasure": 0 },
+        { "rank": 2, "health": 5, "treasure": 1 },
+        { "rank": 3, "health": 6, "treasure": 1 }
+      ]
+    },
+    {
+      "id": "goblin-scout",
+      "name": "Goblin Scout",
+      "expansion": "base-game",
+      "ranks": [
+        { "rank": 1, "health": 2, "treasure": 0 },
+        { "rank": 2, "health": 3, "treasure": 1 },
+        { "rank": 3, "health": 4, "treasure": 1 }
+      ]
+    },
+    {
+      "id": "dark-elf",
+      "name": "Dark Elf",
+      "expansion": "base-game",
+      "ranks": [
+        { "rank": 1, "health": 4, "treasure": 1 },
+        { "rank": 2, "health": 6, "treasure": 2 },
+        { "rank": 3, "health": 7, "treasure": 3 }
+      ]
+    },
+    {
+      "id": "stone-golem",
+      "name": "Stone Golem",
+      "expansion": "base-game",
+      "ranks": [
+        { "rank": 1, "health": 5, "treasure": 2 },
+        { "rank": 2, "health": 7, "treasure": 2 },
+        { "rank": 3, "health": 9, "treasure": 3 }
+      ]
+    },
+    {
+      "id": "orc-brute",
+      "name": "Orc Brute",
+      "expansion": "base-game",
+      "ranks": [
+        { "rank": 1, "health": 4, "treasure": 1 },
+        { "rank": 2, "health": 6, "treasure": 1 },
+        { "rank": 3, "health": 8, "treasure": 2 }
+      ]
+    }
+  ]
+}

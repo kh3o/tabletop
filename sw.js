@@ -17,6 +17,7 @@ const ASSETS_TO_CACHE = [
     './src/js/storage.js',
     './src/data/massive-darkness-2/groups.base-game.json',
     './src/data/massive-darkness-2/roaming.base-game.json',
+    './src/data/massive-darkness-2/roaming.hellscape.json',
     './src/data/massive-darkness-2/characters.base-game.json',
     './src/components/player-card.html',
     './src/components/monster-group.html',
